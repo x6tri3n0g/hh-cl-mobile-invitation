@@ -38,11 +38,10 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setHeroVisible(false);
-      }
+      setHeroVisible(window.scrollY <= 10);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -164,8 +163,7 @@ export default function Home() {
             </span>
             <h2 className="invitation-serif text-4xl leading-tight">
               황현 &amp; 김채린의
-              <br />
-              첫 시작
+              <br />첫 시작
             </h2>
             <p className="invitation-body text-sm text-[#EFE2D6]">
               아래로 스크롤하면 갤러리부터 이어집니다.
