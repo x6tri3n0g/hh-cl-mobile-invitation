@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const galleryImages = [
   {
@@ -17,7 +18,35 @@ const galleryImages = [
   },
 ];
 
+const heroImages = [
+  {
+    src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/1_h1flu2_0d0091.jpg",
+    alt: "메인 웨딩 사진 1",
+  },
+  {
+    src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/2_j338eu_0d0091.jpg",
+    alt: "메인 웨딩 사진 2",
+  },
+  {
+    src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/3_efhpm9_0d0091.jpg",
+    alt: "메인 웨딩 사진 3",
+  },
+];
+
 export default function Home() {
+  const [heroVisible, setHeroVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setHeroVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <main className="min-h-dvh bg-[#F7F3EE] text-[#2E2A27]">
       <style jsx global>{`
@@ -66,6 +95,39 @@ export default function Home() {
         .animate-fade-up {
           animation: fade-up 0.8s ease-out both;
         }
+
+        @keyframes hero-fade {
+          0% {
+            opacity: 0;
+            transform: scale(1.03);
+          }
+          12% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          36% {
+            opacity: 1;
+          }
+          48% {
+            opacity: 0;
+            transform: scale(0.98);
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
+        .hero-slide {
+          animation: hero-fade 15s ease-in-out infinite;
+        }
+
+        .hero-slide:nth-child(2) {
+          animation-delay: 5s;
+        }
+
+        .hero-slide:nth-child(3) {
+          animation-delay: 10s;
+        }
       `}</style>
 
       <div className="relative overflow-hidden">
@@ -73,7 +135,49 @@ export default function Home() {
         <div className="pointer-events-none absolute -right-20 top-16 h-64 w-64 rounded-full bg-[#E7E2C8]/70 blur-3xl animate-float-soft" />
         <div className="pointer-events-none absolute bottom-0 left-10 h-48 w-48 rounded-full bg-[#EBD8E0]/70 blur-3xl" />
 
-        <div className="mx-auto flex min-h-dvh w-full max-w-[720px] flex-col gap-14 px-5 pb-16 pt-10 sm:px-8 sm:pt-14">
+        <section
+          className={`fixed inset-0 z-20 overflow-hidden bg-[#1F1B19] transition-opacity duration-500 ${
+            heroVisible ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        >
+          <div className="absolute inset-0">
+            {heroImages.map((image, index) => (
+              <div
+                key={`hero-${index}`}
+                className="hero-slide absolute inset-0 opacity-0"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.65))]" />
+              </div>
+            ))}
+          </div>
+          <div className="relative z-10 flex h-full flex-col justify-end gap-4 px-6 pb-12 text-[#F7F3EE]">
+            <span className="invitation-body text-xs uppercase tracking-[0.4em] text-[#F1E8DC]">
+              Save The Date
+            </span>
+            <h2 className="invitation-serif text-4xl leading-tight">
+              황현 &amp; 김채린의
+              <br />
+              첫 시작
+            </h2>
+            <p className="invitation-body text-sm text-[#EFE2D6]">
+              아래로 스크롤하면 갤러리부터 이어집니다.
+            </p>
+          </div>
+        </section>
+
+        <div
+          className={`mx-auto flex min-h-dvh w-full max-w-[720px] flex-col gap-14 px-5 pb-16 sm:px-8 ${
+            heroVisible ? "pt-[100svh]" : "pt-10 sm:pt-14"
+          }`}
+        >
           <section className="animate-fade-up delay-300">
             <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {galleryImages.map((image, index) => (
