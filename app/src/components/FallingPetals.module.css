@@ -1,0 +1,48 @@
+.petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.petal {
+    position: absolute;
+    top: -40px;
+    border-radius: 9999px;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 230, 241, 0.95),
+        rgba(245, 168, 201, 0.85)
+    );
+    opacity: 0;
+    animation-name: petal-fall, petal-spin;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+}
+
+@keyframes petal-fall {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    50% {
+        transform: translate3d(40px, 900px, 0);
+    }
+    100% {
+        transform: translate3d(-40px, 1800px, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes petal-spin {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
+}
