@@ -3,42 +3,42 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "OO ❤ OO 결혼합니다",
-  description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
-  openGraph: {
     title: "OO ❤ OO 결혼합니다",
     description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
-    images: ["/images/og.png"],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/images/og.png"],
-  },
+    openGraph: {
+        title: "OO ❤ OO 결혼합니다",
+        description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
+        images: ["/images/og.png"],
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        images: ["/images/og.png"],
+    },
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="ko">
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            >
+                {children}
+            </body>
+        </html>
+    );
 }
