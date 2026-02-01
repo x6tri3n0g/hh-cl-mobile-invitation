@@ -11,10 +11,8 @@ import FallingPetals from "./src/components/FallingPetals";
 import FooterBrand from "./src/components/FooterBrand";
 import GallerySliderSection from "./src/components/GallerySliderSection";
 import GreetingSection from "./src/components/GreetingSection";
-import GuestbookSection from "./src/components/GuestbookSection";
 import HeroImage from "./src/components/hero-image/HeroImage";
 import InformationSection from "./src/components/InformationSection";
-import InvitationHeader from "./src/components/InvitationHeader";
 import RemindSection from "./src/components/RemindSection";
 import RevealOnScroll from "./src/components/RevealOnScroll";
 import RsvpSection from "./src/components/RsvpSection";
@@ -26,9 +24,8 @@ export default function Home() {
 
     return (
         <main className="relative min-h-[100dvh] overflow-hidden text-primary">
-            <FallingPetals />
             <RevealOnScroll />
-
+            <FallingPetals />
             <div
                 className="relative overflow-hidden pt-10"
                 style={{
@@ -46,7 +43,6 @@ export default function Home() {
                             "clamp(10rem, var(--hero-padding, 100svh), 100svh)",
                     }}
                 >
-                    <InvitationHeader />
                     <GreetingSection />
                     <RemindSection />
                     <BaseInfoSection />
@@ -55,7 +51,6 @@ export default function Home() {
                     <GallerySliderSection />
                     <AccountSection />
                     <InformationSection />
-                    <GuestbookSection />
                     <RsvpSection />
                     <EndingSection />
                     <FooterBrand />

@@ -9,7 +9,9 @@ export default function VenueDirectionSection() {
                 </p>
                 <h2 className="mt-2 text-2xl text-ink">오시는 길</h2>
                 <p className="mt-4 text-sm text-ink/70">
-                    서울 강동구 어린이대공원로 304 · 강동 루벨
+                    <strong>강동 루벨</strong>
+                    <br />
+                    서울특별시 강동구 천호대로 1077 이스트센트럴타워 35층
                 </p>
             </div>
 
@@ -24,20 +26,20 @@ export default function VenueDirectionSection() {
                     </div>
                 </div>
             </div>
-
-            <div className="mt-4 text-center text-sm text-ink/70">
-                앱을 열어 길 안내를 시작해 보세요.
-            </div>
             <div className="mt-3 flex gap-2">
                 {[
-                    { label: "티맵" },
-                    { label: "카카오 네비" },
-                    { label: "네이버 지도" },
+                    { label: "티맵", url: "https://tmap.life/a82f4738" },
+                    {
+                        label: "카카오 맵",
+                        url: "https://place.map.kakao.com/1185379934",
+                    },
+                    { label: "네이버 지도", url: "https://naver.me/FqZOfQv9" },
                 ].map((item) => (
                     <button
                         key={item.label}
                         type="button"
                         className="flex-1 rounded-lg border border-line bg-background px-3 py-2 text-xs text-ink shadow-sm transition hover:shadow-md"
+                        onClick={() => window.open(item.url, "_blank")}
                     >
                         {item.label}
                     </button>
@@ -48,19 +50,13 @@ export default function VenueDirectionSection() {
                 <div>
                     <p className="font-semibold text-ink">지하철</p>
                     <p className="mt-1 text-xs">
-                        5호선 강동역 3번 출구 → 도보 8분
-                    </p>
-                </div>
-                <div>
-                    <p className="font-semibold text-ink">버스</p>
-                    <p className="mt-1 text-xs">
-                        간선: 130, 340, 370 / 지선: 2312, 3318
+                        5호선 강동역 1번 출구 → 건물 지하 연결 → 35층
                     </p>
                 </div>
                 <div>
                     <p className="font-semibold text-ink">자가용</p>
                     <p className="mt-1 text-xs">
-                        네비게이션: 강동 루벨 (주차 가능, 혼잡 시 지연 예상)
+                        네비게이션: 강동 루벨 (주차 가능, 2시간 무료)
                     </p>
                 </div>
             </div>

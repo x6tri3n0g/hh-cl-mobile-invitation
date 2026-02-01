@@ -1,27 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const accounts = {
     groom: [
-        { name: "[신랑] 황현", bank: "국민은행", number: "1234-1234-1234" },
-        { name: "[아버지] 정경철", bank: "하나은행", number: "1234-1234-1234" },
+        { name: "[신랑] 황현", bank: "하나은행", number: "12341233123123123" },
+        { name: "[아버지] 황선주", bank: "국민은행", number: "1234-1234-1234" },
     ],
     bride: [
         { name: "[신부] 김채린", bank: "신한은행", number: "1234-5678-9012" },
-        { name: "[어머니] 김은경", bank: "우리은행", number: "9876-5432-1098" },
+        { name: "[아버지] 김기용", bank: "우리은행", number: "9876-5432-1098" },
+        { name: "[어머니] 안희숙", bank: "우리은행", number: "9876-5432-1098" },
     ],
 };
 
 export default function AccountSection() {
     const [tab, setTab] = useState<"groom" | "bride">("groom");
+    const { toast } = useToast();
     const items = accounts[tab];
 
     const copy = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
+            toast.success("계좌번호가 복사되었습니다.");
         } catch {
-            // ignore
+            toast.error("계좌번호 복사가 불가능합니다.");
         }
     };
 
@@ -44,7 +48,7 @@ export default function AccountSection() {
                             onClick={() => setTab(key)}
                             className={`rounded-xl py-2 text-sm ${
                                 tab === key
-                                    ? "bg-background text-ink shadow"
+                                    ? "bg-background text-ink border border-line"
                                     : "text-ink/55"
                             }`}
                         >
@@ -69,7 +73,7 @@ export default function AccountSection() {
                         <button
                             type="button"
                             onClick={() => copy(item.number)}
-                            className="mt-2 text-xs text-accent"
+                            className="mt-2 text-xs text-blue-500"
                         >
                             계좌번호 복사
                         </button>
