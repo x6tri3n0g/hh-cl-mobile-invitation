@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastProvider } from "@/hooks/use-toast";
 import "./globals.css";
@@ -26,6 +26,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         images: ["/images/og.png"],
     },
+};
+
+export const viewport: Viewport = {
+    viewportFit: "cover",
 };
 
 export default function RootLayout({
