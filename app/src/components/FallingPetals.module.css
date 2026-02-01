@@ -12,8 +12,8 @@
     border-radius: 9999px;
     background: radial-gradient(
         circle at 30% 30%,
-        rgba(255, 230, 241, 0.95),
-        rgba(245, 168, 201, 0.85)
+        rgb(var(--color-accent) / 0.4),
+        rgb(var(--color-accent) / 0.75)
     );
     opacity: 0;
     animation-name: petal-fall, petal-spin;

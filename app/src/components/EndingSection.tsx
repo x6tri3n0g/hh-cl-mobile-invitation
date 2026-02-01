@@ -2,8 +2,8 @@
 
 export default function EndingSection() {
     return (
-        <section id="ending" className="reveal text-center">
-            <p className="invitation-body text-sm leading-relaxed text-[#7A5665]">
+        <section id="ending" className=" text-center">
+            <p className="text-sm leading-relaxed text-ink/70">
                 바쁘신 가운데 귀한 걸음 해주셔서 감사합니다.
                 <br />
                 서로의 마음을 소중히 품으며 사랑으로 가득한 하루하루를

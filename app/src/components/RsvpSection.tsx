@@ -2,9 +2,9 @@
 
 export default function RsvpSection() {
     return (
-        <section id="rsvp" className="reveal text-center">
-            <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-[#F2D3DF]" />
-            <p className="invitation-body text-sm text-[#7A5665]">
+        <section id="rsvp" className=" text-center">
+            <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-accent/50" />
+            <p className="text-sm text-ink/70">
                 함께해 주시는 마음,
                 <br />
                 오래 기억하겠습니다.
@@ -12,7 +12,7 @@ export default function RsvpSection() {
             <div className="mt-6 flex justify-center">
                 <button
                     type="button"
-                    className="invitation-body rounded-full bg-[#E07AA9] px-5 py-2 text-sm text-[#FFF7FB] shadow-[0_12px_24px_rgba(224,122,169,0.28)]"
+                    className="rounded-full bg-accent px-5 py-2 text-sm text-ink shadow-[0_12px_24px_rgba(214,182,114,0.3)]"
                 >
                     참석 여부 전달
                 </button>
