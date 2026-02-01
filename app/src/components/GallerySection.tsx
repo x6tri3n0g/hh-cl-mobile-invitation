@@ -20,14 +20,12 @@ const galleryImages = [
 export default function GallerySection() {
     return (
         <section className="animate-fade-up delay-300">
-            <h2 className="invitation-serif text-lg text-[#4A2B3A]">
-                갤러리
-            </h2>
+            <h2 className="text-lg text-ink">갤러리</h2>
             <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {galleryImages.map((image, index) => (
                     <div
                         key={`gallery-${index}`}
-                        className="relative aspect-3/4 overflow-hidden rounded-2xl border border-[#F2D3DF] bg-[#FBE7F1]"
+                        className="relative aspect-3/4 overflow-hidden rounded-2xl border border-line bg-accent/10"
                     >
                         <Image
                             src={image.src}

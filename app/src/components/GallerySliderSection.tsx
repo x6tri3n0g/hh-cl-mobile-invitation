@@ -24,23 +24,18 @@ export default function GallerySliderSection() {
     const total = galleryImages.length;
     const current = galleryImages[index];
 
-    const goPrev = () =>
-        setIndex((prev) => (prev - 1 + total) % total);
+    const goPrev = () => setIndex((prev) => (prev - 1 + total) % total);
     const goNext = () => setIndex((prev) => (prev + 1) % total);
 
     return (
-        <section id="gallery" className="reveal">
+        <section id="gallery" className="">
             <div className="text-center">
-                <p className="invitation-body text-xs tracking-[0.2em] text-[#9A5D7A]">
-                    GALLERY
-                </p>
-                <h2 className="invitation-serif mt-2 text-2xl text-[#4A2B3A]">
-                    웨딩 갤러리
-                </h2>
+                <p className="text-xs tracking-[0.2em] text-ink/55">GALLERY</p>
+                <h2 className="mt-2 text-2xl text-ink">웨딩 갤러리</h2>
             </div>
 
             <div className="mt-6">
-                <div className="relative overflow-hidden rounded-2xl border border-[#F2D3DF] bg-[#FBE7F1]">
+                <div className="relative overflow-hidden rounded-2xl border border-line bg-accent/10">
                     <div className="relative aspect-[9/13]">
                         <Image
                             src={current.src}
@@ -72,7 +67,7 @@ export default function GallerySliderSection() {
                     <button
                         type="button"
                         onClick={() => setIsOpen(true)}
-                        className="absolute bottom-3 right-3 rounded-full bg-white/85 px-3 py-1 text-xs text-[#4A2B3A]"
+                        className="absolute bottom-3 right-3 rounded-full bg-background/85 px-3 py-1 text-xs text-ink"
                     >
                         전체보기
                     </button>
@@ -85,9 +80,7 @@ export default function GallerySliderSection() {
                             key={image.src}
                             onClick={() => setIndex(idx)}
                             className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border ${
-                                idx === index
-                                    ? "border-[#E07AA9]"
-                                    : "border-[#F2D3DF]"
+                                idx === index ? "border-accent" : "border-line"
                             }`}
                         >
                             <Image
@@ -117,7 +110,7 @@ export default function GallerySliderSection() {
                         <button
                             type="button"
                             onClick={() => setIsOpen(false)}
-                            className="mt-4 w-full rounded-full bg-white/90 py-2 text-sm text-[#4A2B3A]"
+                            className="mt-4 w-full rounded-full bg-background/90 py-2 text-sm text-ink"
                         >
                             닫기
                         </button>

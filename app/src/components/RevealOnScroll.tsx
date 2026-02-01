@@ -15,7 +15,7 @@ export default function RevealOnScroll() {
             (entries, io) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add("reveal-visible");
+                        entry.target.classList.add("-visible");
                         io.unobserve(entry.target);
                     }
                 });

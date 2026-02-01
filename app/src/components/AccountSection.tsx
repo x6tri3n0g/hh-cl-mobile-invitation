@@ -26,19 +26,16 @@ export default function AccountSection() {
     };
 
     return (
-        <section id="account" className="reveal text-center">
-            <p className="invitation-body text-xs tracking-[0.2em] text-[#9A5D7A]">
+        <section id="account" className=" text-center">
+            <p className="text-xs tracking-[0.2em] text-ink/55">
                 ACCOUNT INFORMATION
             </p>
-            <h2 className="invitation-serif mt-2 text-2xl text-[#4A2B3A]">
-                축하의 마음을 전하기
-            </h2>
-            <p className="invitation-body mt-4 text-sm text-[#7A5665]">
-                비대면으로 축하를 전하고자 하시는 분들을 위해
-                안내드립니다.
+            <h2 className="mt-2 text-2xl text-ink">축하의 마음을 전하기</h2>
+            <p className="mt-4 text-sm text-ink/70">
+                비대면으로 축하를 전하고자 하시는 분들을 위해 안내드립니다.
             </p>
 
-            <div className="mt-6 rounded-2xl border border-[#F2D3DF] bg-[#FFF4F8]/85 p-2">
+            <div className="mt-6 rounded-2xl border border-line bg-accent/10 p-2">
                 <div className="grid grid-cols-2 gap-2">
                     {(["groom", "bride"] as const).map((key) => (
                         <button
@@ -47,8 +44,8 @@ export default function AccountSection() {
                             onClick={() => setTab(key)}
                             className={`rounded-xl py-2 text-sm ${
                                 tab === key
-                                    ? "bg-white text-[#4A2B3A] shadow"
-                                    : "text-[#9A5D7A]"
+                                    ? "bg-background text-ink shadow"
+                                    : "text-ink/55"
                             }`}
                         >
                             {key === "groom" ? "신랑측" : "신부측"}
@@ -61,18 +58,18 @@ export default function AccountSection() {
                 {items.map((item) => (
                     <div
                         key={item.name}
-                        className="rounded-2xl border border-[#F2D3DF] bg-white px-4 py-3 shadow-sm"
+                        className="rounded-2xl border border-line bg-background px-4 py-3 shadow-sm"
                     >
-                        <p className="text-sm font-semibold text-[#4A2B3A]">
+                        <p className="text-sm font-semibold text-ink">
                             {item.name}
                         </p>
-                        <p className="mt-1 text-xs text-[#7A5665]">
+                        <p className="mt-1 text-xs text-ink/70">
                             {item.number} · {item.bank}
                         </p>
                         <button
                             type="button"
                             onClick={() => copy(item.number)}
-                            className="mt-2 text-xs text-[#E07AA9]"
+                            className="mt-2 text-xs text-accent"
                         >
                             계좌번호 복사
                         </button>

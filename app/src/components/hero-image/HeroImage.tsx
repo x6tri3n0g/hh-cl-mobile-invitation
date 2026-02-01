@@ -3,7 +3,6 @@
 import Image from "next/image";
 
 import useHeroScroll from "./useHeroScroll";
-import styles from "./HeroImage.module.css";
 
 export default function HeroImage() {
     const { fadeOutProgress } = useHeroScroll();
@@ -14,37 +13,44 @@ export default function HeroImage() {
 
     return (
         <section
-            className={styles.heroSection}
+            className="fixed inset-x-0 top-0 z-20 h-[100svh] overflow-hidden bg-ink"
             style={{
                 opacity,
                 transform: `scale(${scale})`,
                 pointerEvents: isHidden ? "none" : "auto",
+                transition: "opacity 0.35s ease, transform 0.35s ease",
             }}
             aria-hidden={isHidden}
         >
-            <div className={styles.heroSlides}>
-                <div className={styles.heroSlide}>
-                    <Image
-                        src="https://res.cloudinary.com/dpjkhhtmt/image/upload/v1768744596/KakaoTalk_Photo_2026-01-18-22-55-40_002_e566zq.jpg"
-                        alt="메인 웨딩 사진 1"
-                        fill
-                        className={styles.heroImage}
-                        sizes="100vw"
-                        priority
-                    />
-                    <div className={styles.heroOverlay} />
-                </div>
+            <div className="absolute inset-0">
+                <Image
+                    src="https://res.cloudinary.com/dpjkhhtmt/image/upload/v1768744596/KakaoTalk_Photo_2026-01-18-22-55-40_002_e566zq.jpg"
+                    alt="메인 웨딩 사진 1"
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority
+                />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background:
+                            "linear-gradient(180deg, rgba(52, 48, 40, 0.15), rgba(52, 48, 40, 0.78))",
+                    }}
+                />
             </div>
 
-            <div className={styles.heroContent}>
-                <span className={`invitation-body ${styles.heroEyebrow}`}>
-                    <strong className="text-lg">2025.05.30 · SAT · PM 18:30</strong>
+            <div className="relative z-10 flex h-full flex-col justify-end gap-4 px-5 pb-24 text-white">
+                <span className="text-lg">
+                    <strong className="text-white">
+                        2025.05.30 · SAT · PM 18:30
+                    </strong>
                 </span>
-                <h2 className={`invitation-serif ${styles.heroTitle}`}>
+                <h2 className="text-2xl text-white">
                     황현 &amp; 김채린의
                     <br />첫 시작
                 </h2>
-                <p className={`invitation-body ${styles.heroSubtitle}`}>
+                <p className="text-sm text-white/80">
                     아래로 스크롤하면 갤러리부터 이어집니다.
                 </p>
             </div>

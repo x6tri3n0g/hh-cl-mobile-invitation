@@ -1,0 +1,17 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+    content: ["./app/**/*.{ts,tsx,css}"],
+    theme: {
+        extend: {
+            colors: {
+                background: "#f4f4f4",
+                ink: "#343028",
+                line: "#eae3c4",
+                accent: "#D6B672",
+            },
+        },
+    },
+};
+
+export default config;
