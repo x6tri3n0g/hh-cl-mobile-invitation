@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "OO ❤ OO 결혼합니다",
-    description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
+    title: "현 ❤ 채린 결혼식에 초대합니다",
+    description: "2026.05.30 (토) 오후 18:30, 강동 루벨",
     openGraph: {
-        title: "OO ❤ OO 결혼합니다",
-        description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
+        title: "현 ❤ 채린 결혼식에 초대합니다",
+        description: "2026.05.30 (토) 오후 18:30, 강동 루벨",
         images: ["/images/og.png"],
         type: "website",
     },

@@ -24,16 +24,16 @@ export default function InformationSection() {
         <section id="information" className=" text-center">
             <p className="text-xs tracking-[0.2em] text-ink/55">INFORMATION</p>
             <h2 className="mt-2 text-2xl text-ink">안내사항</h2>
-            <div className="mt-6 rounded-2xl border border-line bg-accent/10 p-2">
-                <div className="flex justify-center items-center gap-2">
+            <div className="mt-6 rounded-2xl bg-accent/90 p-2">
+                <div className="flex justify-center items-center gap-2 text-base">
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             type="button"
                             onClick={() => setActive(tab.id)}
-                            className={`flex-1 rounded-xl py-2 text-xs ${
+                            className={`flex-1 rounded-xl py-2 text-base ${
                                 active === tab.id
-                                    ? "bg-background text-ink border border-line"
+                                    ? "bg-background text-ink"
                                     : "text-ink/55"
                             }`}
                         >
@@ -41,7 +41,7 @@ export default function InformationSection() {
                         </button>
                     ))}
                 </div>
-                <div className="mt-3 rounded-xl bg-background px-4 py-4 text-sm text-ink/70">
+                <div className="mt-2 rounded-xl bg-background px-4 py-4 text-sm text-ink/70">
                     {current.content}
                 </div>
             </div>

@@ -12,7 +12,7 @@
     border-radius: 9999px;
     background: radial-gradient(
         circle at 30% 30%,
-        rgb(var(--color-accent) / 0.4),
+        rgb(var(--color-accent) / 0.6),
         rgb(var(--color-accent) / 0.75)
     );
     opacity: 0;
