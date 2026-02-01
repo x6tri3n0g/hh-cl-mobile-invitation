@@ -40,7 +40,7 @@ export default function BaseInfoSection() {
                         </div>
                     </div>
                     <p className="mt-3 text-sm text-ink/70">
-                        김기용 · 안희숙의 딸
+                        김기용 · 인희숙의 딸
                     </p>
                     <p className="mt-1 text-base text-ink">김채린</p>
                 </article>

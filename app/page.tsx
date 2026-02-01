@@ -40,13 +40,13 @@ export default function Home() {
                     className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col gap-14 px-5 pb-16"
                     style={{
                         paddingTop:
-                            "clamp(10rem, var(--hero-padding, 100svh), 100svh)",
+                            "clamp(28rem, var(--hero-padding, 100svh), 100svh)",
                     }}
                 >
                     <GreetingSection />
-                    <RemindSection />
                     <BaseInfoSection />
                     <WeddingInfoSection />
+                    <RemindSection />
                     <VenueDirectionSection />
                     <GallerySliderSection />
                     <AccountSection />
