@@ -7,11 +7,59 @@
     --color-background: #ffffff;
     --color-ink: #343028;
     --color-line: #d4d4d4;
-    --color-accent: #f5f5f5;
+    --color-accent: #e8e0f0;
 }
 
 body {
     background: var(--color-background);
     color: var(--color-ink);
     font-family: Pretendard, Helvetica, sans-serif;
+}
+
+/* 모달 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+}
+
+@keyframes toast-pop {
+    0% {
+        opacity: 0;
+        transform: translateY(4px) scale(0.995);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.toast-pop {
+    animation: toast-pop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }

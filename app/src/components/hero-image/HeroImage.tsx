@@ -23,13 +23,10 @@ export default function HeroImage() {
             aria-hidden={isHidden}
         >
             <div className="absolute inset-0">
-                <Image
-                    src="https://res.cloudinary.com/dpjkhhtmt/image/upload/v1768744596/KakaoTalk_Photo_2026-01-18-22-55-40_002_e566zq.jpg"
+                <img
+                    src="https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927440/KakaoTalk_Photo_2026-01-25-19-12-19_009_fd3nip.jpg"
                     alt="메인 웨딩 사진 1"
-                    fill
-                    className="object-cover"
-                    sizes="100vw"
-                    priority
+                    className="w-full h-full object-cover"
                 />
                 <div
                     className="absolute inset-0"
