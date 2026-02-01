@@ -64,11 +64,14 @@ export default function WeddingInfoSection() {
                         return (
                             <span
                                 key={`day-${day}`}
-                                className={`flex h-8 w-8 items-center justify-center rounded-full text-center ${
-                                    isWeddingDay ? "bg-accent text-ink" : ""
-                                }`}
+                                className="relative flex h-8 w-8 items-center justify-center rounded-full text-center"
                             >
-                                {day}
+                                {isWeddingDay && (
+                                    <span className="absolute top-2 inset-0 flex items-center justify-center">
+                                        <span className="heart-shape" />
+                                    </span>
+                                )}
+                                <span className="relative z-10">{day}</span>
                             </span>
                         );
                     })}
@@ -93,7 +96,9 @@ export default function WeddingInfoSection() {
                     <div className="text-lg text-ink">{secsLeft}</div>
                 </div>
             </div>
-            <p className="mt-2 text-xs text-ink/55">{daysLeft}일 남았습니다</p>
+            <p className="mt-2 text-sm text-highlight font-semibold">
+                {daysLeft}일 남았습니다
+            </p>
         </section>
     );
 }

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastProvider } from "@/hooks/use-toast";
 import "./globals.css";
@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "OO ❤ OO 결혼합니다",
-    description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
+    title: "현 ❤ 채린 결혼식에 초대합니다",
+    description: "2026.05.30 (토) 오후 18:30, 강동 루벨",
     openGraph: {
-        title: "OO ❤ OO 결혼합니다",
-        description: "2026.05.00 (토) 오후 0시 00분, ○○웨딩홀",
+        title: "현 ❤ 채린 결혼식에 초대합니다",
+        description: "2026.05.30 (토) 오후 18:30, 강동 루벨",
         images: ["/images/og.png"],
         type: "website",
     },
@@ -26,6 +26,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         images: ["/images/og.png"],
     },
+};
+
+export const viewport: Viewport = {
+    viewportFit: "cover",
 };
 
 export default function RootLayout({

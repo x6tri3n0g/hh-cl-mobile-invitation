@@ -1,44 +1,88 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import {
+    FiShare,
+    FiVolume2,
+    FiZoomOut,
+    FiVolumeX,
+    FiZoomIn,
+} from "react-icons/fi";
+import { useToast } from "@/hooks/use-toast";
 
-type BottomActionBarProps = {
-    onZoomChange?: (zoom: number) => void;
+const INITIAL_ZOOM = 1;
+const ZOOM_RATIO = 1.1;
+
+interface ActionButtonProps {
+    children: React.ReactNode;
+    onClick: () => void;
+    className?: string;
+}
+
+const ActionButton = ({ children, onClick, className }: ActionButtonProps) => {
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            className={`flex items-center justify-center w-[48px] h-[48px] rounded-full border border-line bg-accent/10 px-3 py-3 text-base text-ink ${className}`}
+        >
+            {children}
+        </button>
+    );
 };
 
-export default function BottomActionBar({ onZoomChange }: BottomActionBarProps) {
-    const [soundOn, setSoundOn] = useState(false);
-    const [zoom, setZoom] = useState(1);
+interface Props {
+    onZoomChange?: (zoom: number) => void;
+}
 
-    const toggleZoom = () => {
-        const next = zoom === 1 ? 1.1 : 1;
+export default function BottomActionBar({ onZoomChange }: Props) {
+    const [soundOn, setSoundOn] = useState(false);
+    const [zoom, setZoom] = useState(INITIAL_ZOOM);
+    const { toast } = useToast();
+
+    const toggleZoom = useCallback(() => {
+        const next = zoom === INITIAL_ZOOM ? ZOOM_RATIO : INITIAL_ZOOM;
         setZoom(next);
         onZoomChange?.(next);
-    };
+    }, [onZoomChange, zoom]);
+
+    const handleShare = useCallback(async () => {
+        const url = window.location.href;
+        const shareData = {
+            title: document.title,
+            text: "모바일 청첩장을 확인해 주세요.",
+            url,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                return;
+            } catch {
+                // ignore cancellation
+            }
+        }
+
+        try {
+            await navigator.clipboard.writeText(url);
+            toast.success("링크가 복사되었습니다.");
+        } catch {
+            toast.error("공유가 불가능합니다.");
+        }
+    }, [toast]);
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50 mx-auto w-full max-w-[480px] border-t border-line bg-background/90 p-3 backdrop-blur">
-            <div className="flex items-center gap-2">
-                <button
-                    type="button"
-                    className="flex-1 rounded-lg border border-line bg-accent/10 px-3 py-3 text-sm text-ink"
-                >
-                    공유
-                </button>
-                <button
-                    type="button"
-                    onClick={() => setSoundOn((prev) => !prev)}
-                    className="flex-1 rounded-lg border border-line bg-accent/10 px-3 py-3 text-sm text-ink"
-                >
-                    {soundOn ? "ON" : "OFF"}
-                </button>
-                <button
-                    type="button"
-                    onClick={toggleZoom}
-                    className="flex-1 rounded-lg border border-line bg-accent/10 px-3 py-3 text-sm text-ink"
-                >
-                    {zoom === 1 ? "1x" : "1.1x"}
-                </button>
+        <div className="fixed bottom-2 right-4 z-50 pb-[env(safe-area-inset-bottom)]">
+            <div className="flex items-center gap-2 border-line bg-background/90 p-3 backdrop-blur rounded-full shadow-lg">
+                <ActionButton onClick={handleShare}>
+                    <FiShare />
+                </ActionButton>
+                <ActionButton onClick={() => setSoundOn((prev) => !prev)}>
+                    {soundOn ? <FiVolumeX /> : <FiVolume2 />}
+                </ActionButton>
+                <ActionButton onClick={toggleZoom}>
+                    {zoom === INITIAL_ZOOM ? <FiZoomIn /> : <FiZoomOut />}
+                </ActionButton>
             </div>
         </div>
     );

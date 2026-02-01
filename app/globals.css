@@ -8,15 +8,19 @@
     --color-ink: #343028;
     --color-line: #d4d4d4;
     --color-accent: #e8e0f0;
+    --color-highlight: #a550ff;
 }
 
 body {
     background: var(--color-background);
     color: var(--color-ink);
-    font-family: Pretendard, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
-/* 모달 애니메이션 */
+section {
+    padding-top: 28px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -62,4 +66,34 @@ body {
 
 .toast-pop {
     animation: toast-pop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.heart-shape {
+    position: relative;
+    width: 1.2rem;
+    height: 1.2rem;
+    transform: rotate(-45deg);
+    background: var(--color-accent);
+    border-radius: 0.25rem 0.25rem 0 0;
+    opacity: 0.75;
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: "";
+    position: absolute;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: var(--color-accent);
+    border-radius: 9999px;
+}
+
+.heart-shape::before {
+    top: -0.55rem;
+    left: 0;
+}
+
+.heart-shape::after {
+    left: 0.55rem;
+    top: 0;
 }
