@@ -19,12 +19,10 @@ export const metadata: Metadata = {
     openGraph: {
         title: "현 ❤ 채린 결혼식에 초대합니다",
         description: "2026.05.30 (토) 오후 18:30, 강동 루벨",
-        images: ["/images/og.png"],
+        images: [
+            "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927440/KakaoTalk_Photo_2026-01-25-19-12-19_009_fd3nip.jpg",
+        ],
         type: "website",
-    },
-    twitter: {
-        card: "summary_large_image",
-        images: ["/images/og.png"],
     },
 };
 

@@ -1,6 +1,9 @@
+"use client";
+
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { generateICS, downloadICS } from "../utils/ics";
+import { motion } from "framer-motion";
 
 const REMIND_MESSAGE_URL = "https://calendar.app.google/yGqbSPJNRMakctDy9";
 
@@ -44,7 +47,7 @@ export default function RemindSection() {
                     className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-ink px-8 py-4 text-base font-medium text-white shadow-xl shadow-ink/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-ink/20 active:translate-y-0 active:scale-95"
                 >
                     <span className="relative z-10 flex items-center gap-2">
-                        <svg
+                        <motion.svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="18"
                             height="18"
@@ -54,11 +57,24 @@ export default function RemindSection() {
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="transition-transform duration-300 group-hover:rotate-12"
+                            animate={{
+                                rotate: [0, 4, -4, 3, -3, 2, -2, 0],
+                            }}
+                            whileHover={{ scale: 1.03, rotate: 6 }}
+                            transition={{
+                                rotate: {
+                                    duration: 1.2,
+                                    repeat: Infinity,
+                                    repeatDelay: 1.8,
+                                    ease: "easeInOut",
+                                },
+                                scale: { duration: 0.2 },
+                            }}
+                            className="origin-top"
                         >
                             <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
                             <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                        </svg>
+                        </motion.svg>
                         캘린더에 일정 추가하기
                     </span>
                     <div className="absolute inset-0 z-0 bg-linear-to-r from-white/0 via-white/10 to-white/0 opacity-0 transition-opacity duration-500 group-hover:animate-shine" />
