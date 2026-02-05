@@ -10,6 +10,7 @@ interface ScrollRevealProps {
     direction?: "up" | "down" | "left" | "right";
     className?: string;
     once?: boolean;
+    blur?: boolean;
 }
 
 export default function ScrollReveal({
@@ -19,6 +20,7 @@ export default function ScrollReveal({
     direction = "up",
     className = "",
     once = true,
+    blur = false,
 }: ScrollRevealProps) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once });
@@ -41,7 +43,12 @@ export default function ScrollReveal({
     const { x, y } = getDirectionOffset();
 
     const variants: Variants = {
-        hidden: { opacity: 0, y, x, filter: "blur(4px)" },
+        hidden: {
+            opacity: 0,
+            y,
+            x,
+            filter: blur ? "blur(4px)" : "blur(0px)",
+        },
         visible: {
             opacity: 1,
             y: 0,
