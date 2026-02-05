@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
+import { useState, useEffect, useRef } from "react";
+import GalleryModal from "./GalleryModal";
+import ScrollReveal from "./ScrollReveal";
 
 const galleryImages = [
     {
@@ -53,19 +54,67 @@ export default function GallerySliderSection() {
     const total = galleryImages.length;
     const current = galleryImages[index];
 
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [isOpen]);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const [dragDistance, setDragDistance] = useState(0);
 
     const goPrev = () => setIndex((prev) => (prev - 1 + total) % total);
     const goNext = () => setIndex((prev) => (prev + 1) % total);
+
+    // Auto-scroll to selected thumbnail
+    useEffect(() => {
+        if (!scrollContainerRef.current) return;
+
+        const container = scrollContainerRef.current;
+        const thumbnailButton = container.children[index] as HTMLElement;
+
+        if (thumbnailButton) {
+            const containerCenter = container.clientWidth / 2;
+            const thumbnailCenter = thumbnailButton.offsetWidth / 2;
+            const scrollPos =
+                thumbnailButton.offsetLeft - containerCenter + thumbnailCenter;
+
+            container.scrollTo({
+                left: scrollPos,
+                behavior: "smooth",
+            });
+        }
+    }, [index]);
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        setIsDragging(true);
+        setStartX(e.pageX - (scrollContainerRef.current?.offsetLeft || 0));
+        setScrollLeft(scrollContainerRef.current?.scrollLeft || 0);
+        setDragDistance(0);
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - (scrollContainerRef.current?.offsetLeft || 0);
+        const walk = (x - startX) * 2; // Scroll-fast
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+        }
+        setDragDistance(Math.abs(walk));
+    };
+
+    const handleThumbnailClick = (idx: number) => {
+        // Only select if it was a click, not a drag
+        if (dragDistance < 5) {
+            setIndex(idx);
+        }
+    };
 
     return (
         <section id="gallery" className="">
@@ -75,107 +124,89 @@ export default function GallerySliderSection() {
             </div>
 
             <div className="mt-6">
-                <div className="relative overflow-hidden rounded-2xl border border-line bg-accent/10">
-                    <div className="relative aspect-[9/13]">
-                        <Image
-                            src={current.src}
-                            alt={current.alt}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 640px) 90vw, 420px"
-                        />
-                    </div>
-                    <button
-                        type="button"
-                        onClick={goPrev}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white"
-                        aria-label="이전"
-                    >
-                        ‹
-                    </button>
-                    <button
-                        type="button"
-                        onClick={goNext}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white"
-                        aria-label="다음"
-                    >
-                        ›
-                    </button>
-                    <div className="absolute bottom-3 left-3 rounded-full bg-black/30 px-2 py-1 text-xs text-white">
-                        {index + 1} / {total}
-                    </div>
-                    <button
-                        type="button"
-                        onClick={() => setIsOpen(true)}
-                        className="absolute bottom-3 right-3 rounded-full bg-background/85 px-3 py-1 text-xs text-ink"
-                    >
-                        원본보기
-                    </button>
-                </div>
-
-                <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
-                    {galleryImages.map((image, idx) => (
-                        <button
-                            type="button"
-                            key={image.src}
-                            onClick={() => setIndex(idx)}
-                            className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border ${
-                                idx === index ? "border-accent" : "border-line"
-                            }`}
-                        >
-                            <img
-                                src={image.src}
-                                alt={image.alt}
-                                className="w-[64px] h-[64px] object-cover"
+                <ScrollReveal direction="up" delay={0.1}>
+                    <div className="relative overflow-hidden rounded-2xl border border-line bg-accent/10">
+                        <div className="relative aspect-[9/13]">
+                            <Image
+                                src={current.src}
+                                alt={current.alt}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 640px) 90vw, 420px"
+                                priority
                             />
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {isOpen &&
-                createPortal(
-                    <div className="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+                        </div>
                         <button
                             type="button"
                             onClick={goPrev}
-                            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-3 text-2xl text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50"
                             aria-label="이전"
                         >
                             ‹
                         </button>
-
-                        <div className="animate-scale-in relative w-full max-w-md">
-                            <div className="relative aspect-[9/13] overflow-hidden rounded-2xl bg-black">
-                                <img
-                                    src={current.src}
-                                    alt={current.alt}
-                                    className="w-full h-full object-contain"
-                                />
-                            </div>
-                            <div className="mt-3 text-center text-sm text-white/80">
-                                {index + 1} / {total}
-                            </div>
-                            <button
-                                type="button"
-                                onClick={() => setIsOpen(false)}
-                                className="mt-3 w-full rounded-full bg-background/90 py-2 text-sm text-ink"
-                            >
-                                닫기
-                            </button>
-                        </div>
-
                         <button
                             type="button"
                             onClick={goNext}
-                            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-3 text-2xl text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50"
                             aria-label="다음"
                         >
                             ›
                         </button>
-                    </div>,
-                    document.body
-                )}
+                        <div className="absolute bottom-3 left-3 rounded-full bg-black/30 px-2 py-1 text-xs text-white">
+                            {index + 1} / {total}
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setIsOpen(true)}
+                            className="absolute bottom-3 right-3 rounded-full bg-background/85 px-3 py-1 text-xs text-ink transition-colors hover:bg-background"
+                        >
+                            원본보기
+                        </button>
+                    </div>
+                </ScrollReveal>
+
+                <ScrollReveal direction="up" delay={0.2} className="mt-3">
+                    <div
+                        ref={scrollContainerRef}
+                        className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
+                        onMouseDown={handleMouseDown}
+                        onMouseLeave={handleMouseLeave}
+                        onMouseUp={handleMouseUp}
+                        onMouseMove={handleMouseMove}
+                    >
+                        {galleryImages.map((image, idx) => (
+                            <button
+                                type="button"
+                                key={image.src}
+                                onClick={() => handleThumbnailClick(idx)}
+                                className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border transition-all ${
+                                    idx === index
+                                        ? "border-accent opacity-100 ring-2 ring-accent ring-offset-1"
+                                        : "border-line opacity-70 hover:opacity-100"
+                                }`}
+                            >
+                                <Image
+                                    src={image.src}
+                                    alt={image.alt}
+                                    fill
+                                    className="object-cover pointer-events-none" // Avoid creating image drag ghost
+                                    sizes="64px"
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </ScrollReveal>
+            </div>
+
+            <GalleryModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                currentImage={current}
+                currentIndex={index}
+                totalImages={total}
+                onPrev={goPrev}
+                onNext={goNext}
+            />
         </section>
     );
 }

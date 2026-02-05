@@ -1,38 +1,56 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import WeddingCalendar from "./WeddingCalendar";
 
 const weddingDate = new Date("2026-05-30T18:30:00+09:00");
 
-const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-
-const getDaysInMonth = (year: number, month: number) =>
-    new Date(year, month + 1, 0).getDate();
-
-export default function WeddingInfoSection() {
-    const [now, setNow] = useState<Date>(new Date());
+function useWeddingCountdown(targetDate: Date) {
+    const [timeLeft, setTimeLeft] = useState<{
+        days: number;
+        hours: number;
+        mins: number;
+        secs: number;
+    } | null>(null);
 
     useEffect(() => {
-        const id = window.setInterval(() => {
-            setNow(new Date());
-        }, 1000);
-        return () => window.clearInterval(id);
-    }, []);
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            const diff = Math.max(targetDate.getTime() - now.getTime(), 0);
 
-    const { days, startDay } = useMemo(() => {
-        const year = weddingDate.getFullYear();
-        const month = weddingDate.getMonth();
-        return {
-            days: getDaysInMonth(year, month),
-            startDay: new Date(year, month, 1).getDay(),
+            return {
+                days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+                mins: Math.floor((diff / (1000 * 60)) % 60),
+                secs: Math.floor((diff / 1000) % 60),
+            };
         };
-    }, []);
 
-    const diff = Math.max(weddingDate.getTime() - now.getTime(), 0);
-    const daysLeft = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hoursLeft = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minsLeft = Math.floor((diff / (1000 * 60)) % 60);
-    const secsLeft = Math.floor((diff / 1000) % 60);
+        // Initial calculation
+        setTimeLeft(calculateTimeLeft());
+
+        const id = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearInterval(id);
+    }, [targetDate]);
+
+    return timeLeft;
+}
+
+export default function WeddingInfoSection() {
+    const timeLeft = useWeddingCountdown(weddingDate);
+
+    // If timeLeft is null (during server rendering or first client render before effect),
+    // we can render placeholders or nothing.
+    // To match content, we can default to 0s or empty, but 0 is safer for layout.
+    const { days, hours, mins, secs } = timeLeft || {
+        days: 0,
+        hours: 0,
+        mins: 0,
+        secs: 0,
+    };
 
     return (
         <section id="wedding_info" className=" text-center">
@@ -46,59 +64,26 @@ export default function WeddingInfoSection() {
                 <p className="mt-1">오후 6시 30분</p>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-line bg-accent/10 px-4 py-5">
-                <div className="grid grid-cols-7 gap-2 text-xs text-ink/55">
-                    {weekdays.map((day) => (
-                        <span key={day} className="text-center">
-                            {day}
-                        </span>
-                    ))}
-                </div>
-                <div className="mt-3 grid grid-cols-7 gap-2 text-sm text-ink/70">
-                    {Array.from({ length: startDay }).map((_, index) => (
-                        <span key={`empty-${index}`} />
-                    ))}
-                    {Array.from({ length: days }).map((_, index) => {
-                        const day = index + 1;
-                        const isWeddingDay = day === weddingDate.getDate();
-                        return (
-                            <span
-                                key={`day-${day}`}
-                                className="relative flex h-8 w-8 items-center justify-center rounded-full text-center"
-                            >
-                                {isWeddingDay && (
-                                    <span className="absolute top-2 inset-0 flex items-center justify-center">
-                                        <span className="heart-shape" />
-                                    </span>
-                                )}
-                                <span className="relative z-10">{day}</span>
-                            </span>
-                        );
-                    })}
-                </div>
-            </div>
+            <WeddingCalendar date={weddingDate} />
 
             <div className="mt-6 flex items-center justify-center gap-4 text-sm text-ink/70">
                 <div className="text-center">
                     <div className="text-xs tracking-[0.2em]">일</div>
-                    <div className="text-lg text-ink">{daysLeft}</div>
+                    <div className="text-lg text-ink">{days}</div>
                 </div>
                 <div className="text-center">
                     <div className="text-xs tracking-[0.2em]">시간</div>
-                    <div className="text-lg text-ink">{hoursLeft}</div>
+                    <div className="text-lg text-ink">{hours}</div>
                 </div>
                 <div className="text-center">
                     <div className="text-xs tracking-[0.2em]">분</div>
-                    <div className="text-lg text-ink">{minsLeft}</div>
+                    <div className="text-lg text-ink">{mins}</div>
                 </div>
                 <div className="text-center">
                     <div className="text-xs tracking-[0.2em]">초</div>
-                    <div className="text-lg text-ink">{secsLeft}</div>
+                    <div className="text-lg text-ink">{secs}</div>
                 </div>
             </div>
-            <p className="mt-2 text-sm text-highlight font-semibold">
-                {daysLeft}일 남았습니다
-            </p>
         </section>
     );
 }

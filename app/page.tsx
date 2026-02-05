@@ -14,17 +14,16 @@ import GreetingSection from "./src/components/GreetingSection";
 import HeroImage from "./src/components/hero-image/HeroImage";
 import InformationSection from "./src/components/InformationSection";
 import RemindSection from "./src/components/RemindSection";
-import RevealOnScroll from "./src/components/RevealOnScroll";
 import RsvpSection from "./src/components/RsvpSection";
 import VenueDirectionSection from "./src/components/VenueDirectionSection";
 import WeddingInfoSection from "./src/components/WeddingInfoSection";
+import ScrollReveal from "./src/components/ScrollReveal";
 
 export default function Home() {
     const [zoom, setZoom] = useState(1);
 
     return (
         <main className="relative min-h-[100dvh] overflow-hidden text-primary">
-            <RevealOnScroll />
             <FallingPetals />
             <div
                 className="relative overflow-hidden pt-10"
@@ -34,6 +33,7 @@ export default function Home() {
                 }}
             >
                 <BackgroundDecorations />
+
                 <HeroImage />
 
                 <div
@@ -44,15 +44,41 @@ export default function Home() {
                     }}
                 >
                     <GreetingSection />
+
                     <BaseInfoSection />
-                    <WeddingInfoSection />
-                    <RemindSection />
-                    <VenueDirectionSection />
-                    <GallerySliderSection />
-                    <AccountSection />
-                    <InformationSection />
-                    <RsvpSection />
-                    <EndingSection />
+
+                    <ScrollReveal blur>
+                        <WeddingInfoSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <RemindSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <VenueDirectionSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <GallerySliderSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <AccountSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <InformationSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <RsvpSection />
+                    </ScrollReveal>
+
+                    <ScrollReveal blur>
+                        <EndingSection />
+                    </ScrollReveal>
+
                     <FooterBrand />
                 </div>
             </div>
