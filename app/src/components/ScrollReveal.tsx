@@ -15,7 +15,7 @@ interface ScrollRevealProps {
 
 export default function ScrollReveal({
     children,
-    width = "fit-content",
+    width = "100%",
     delay = 0,
     direction = "up",
     className = "",
@@ -65,15 +65,12 @@ export default function ScrollReveal({
     };
 
     return (
-        <div
-            ref={ref}
-            style={{ position: "relative", width, overflow: "hidden" }}
-            className={className}
-        >
+        <div ref={ref} style={{ position: "relative", width }}>
             <motion.div
                 variants={variants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
+                className={className}
             >
                 {children}
             </motion.div>

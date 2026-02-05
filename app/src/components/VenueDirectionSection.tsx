@@ -4,9 +4,21 @@ import { useToast } from "@/hooks/use-toast";
 import { FiCopy } from "react-icons/fi";
 
 const DIRECT_URLS = [
-    { label: "티맵", url: "https://tmap.life/a82f4738" },
-    { label: "카카오 맵", url: "https://place.map.kakao.com/1185379934" },
-    { label: "네이버 지도", url: "https://naver.me/FqZOfQv9" },
+    {
+        label: "티맵",
+        url: "https://tmap.life/a82f4738",
+        className: "bg-white text-ink border border-gray-200 hover:bg-gray-50",
+    },
+    {
+        label: "카카오맵",
+        url: "https://place.map.kakao.com/1185379934",
+        className: "bg-[#FAE100] text-[#371D1E] hover:bg-[#FDD800]",
+    },
+    {
+        label: "네이버지도",
+        url: "https://naver.me/FqZOfQv9",
+        className: "bg-[#03C75A] text-white hover:bg-[#02b351]",
+    },
 ];
 
 const VENUE_ADDRESS = "서울특별시 강동구 천호대로 1077, 이스트센트럴타워 35층";
@@ -23,7 +35,7 @@ export default function VenueDirectionSection() {
     };
 
     return (
-        <section id="venue_direction" className="">
+        <section id="venue_direction">
             <div className="text-center">
                 <p className="text-xs tracking-[0.2em] text-ink/55">
                     LOCATION INFORMATION
@@ -37,7 +49,7 @@ export default function VenueDirectionSection() {
                         onClick={() => copy(VENUE_ADDRESS)}
                     >
                         {VENUE_ADDRESS}
-                        <FiCopy className="text-blue-500" />
+                        <FiCopy className="text-highlight" />
                     </button>
                 </p>
             </div>
@@ -59,12 +71,12 @@ export default function VenueDirectionSection() {
                     </div>
                 </div>
             </div>
-            <div className="mt-3 flex gap-2">
+            <div className="mt-4 flex gap-3">
                 {DIRECT_URLS.map((item) => (
                     <button
                         key={item.label}
                         type="button"
-                        className="flex-1 rounded-lg px-3 py-2 text-base text-ink bg-accent/90"
+                        className={`flex-1 rounded-xl px-2 py-3 text-sm font-medium shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:scale-95 ${item.className}`}
                         onClick={() => window.open(item.url, "_blank")}
                     >
                         {item.label}

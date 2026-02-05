@@ -21,8 +21,8 @@ const PARENTS_INFO = [
 export default function BaseInfoSection() {
     return (
         <section id="base_info" className="text-center">
-            <p className="text-xs tracking-[0.2em] text-ink/55">
-                BASIC INFORMATION
+            <p className="text-[10px] tracking-[0.3em] text-ink/40 uppercase">
+                Basic Information
             </p>
             <h2 className="mt-2 text-2xl text-ink">신랑 & 신부</h2>
             <div className="mt-8 grid grid-cols-2 gap-4">

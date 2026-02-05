@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = [
     {
@@ -21,29 +22,66 @@ export default function InformationSection() {
     const current = tabs.find((tab) => tab.id === active) ?? tabs[0];
 
     return (
-        <section id="information" className=" text-center">
-            <p className="text-xs tracking-[0.2em] text-ink/55">INFORMATION</p>
-            <h2 className="mt-2 text-2xl text-ink">안내사항</h2>
-            <div className="mt-6 rounded-2xl bg-accent/90 p-2">
-                <div className="flex justify-center items-center gap-2 text-base">
-                    {tabs.map((tab) => (
-                        <button
-                            key={tab.id}
-                            type="button"
-                            onClick={() => setActive(tab.id)}
-                            className={`flex-1 rounded-xl py-2 text-base ${
-                                active === tab.id
-                                    ? "bg-background text-ink"
-                                    : "text-ink/55"
-                            }`}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
+        <section id="information" className="py-12">
+            <div className="text-center">
+                <p className="text-xs tracking-[0.2em] text-ink/55 uppercase">
+                    Information
+                </p>
+                <h2 className="mt-2 text-2xl text-ink">안내사항</h2>
+            </div>
+
+            {/* Premium Sliding Tab Switcher */}
+            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-accent/60 p-1.5 overflow-hidden">
+                <div className="relative flex">
+                    {tabs.map((tab) => {
+                        const isActive = active === tab.id;
+                        return (
+                            <button
+                                key={tab.id}
+                                type="button"
+                                onClick={() => setActive(tab.id)}
+                                className={`relative z-10 flex-1 rounded-[1rem] py-2.5 text-sm font-medium transition-colors duration-200 ${
+                                    isActive
+                                        ? "text-ink"
+                                        : "text-ink/40 hover:text-ink/60"
+                                }`}
+                            >
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="info-tab"
+                                        className="absolute inset-0 z-0 rounded-[0.9rem] bg-white shadow-sm"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 500,
+                                            damping: 35,
+                                        }}
+                                    />
+                                )}
+                                <span className="relative z-10">
+                                    {tab.label}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </div>
-                <div className="mt-2 rounded-xl bg-background px-4 py-4 text-sm text-ink/70">
-                    {current.content}
-                </div>
+            </div>
+
+            {/* Animated Content Box */}
+            <div className="mt-6 mx-auto max-w-md">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={active}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="rounded-[1.25rem] border border-accent/50 bg-white px-6 py-6 shadow-sm"
+                    >
+                        <p className="text-sm leading-relaxed text-ink/70">
+                            {current.content}
+                        </p>
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </section>
     );

@@ -8,6 +8,8 @@ import {
     useRef,
     useState,
 } from "react";
+import { FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 type ToastVariant = "success" | "error" | "info";
 
@@ -30,9 +32,9 @@ type ToastContextValue = {
 const ToastContext = createContext<ToastContextValue | null>(null);
 
 const toastVariantStyles: Record<ToastVariant, string> = {
-    success: "border-line bg-background text-ink",
-    info: "border-line bg-background text-ink",
-    error: "border-line bg-background text-ink",
+    success: "bg-white text-ink",
+    info: "bg-white text-ink",
+    error: "bg-white text-ink",
 };
 
 function ToastViewport({
@@ -48,30 +50,36 @@ function ToastViewport({
 
     return (
         <div
-            className="pointer-events-none fixed bottom-20 left-1/2 z-[60] w-[90vw] max-w-sm -translate-x-1/2 space-y-2"
+            className="pointer-events-none fixed bottom-22 left-1/2 z-[100] w-[90vw] max-w-[320px] -translate-x-1/2 space-y-2"
             role="status"
             aria-live="polite"
         >
-            {toasts.map((toast) => (
-                <div
-                    key={toast.id}
-                    className={`toast-pop pointer-events-auto flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-sm shadow-lg ${toastVariantStyles[toast.variant]}`}
-                    style={{
-                        animation:
-                            "toast-pop 0.35s ease-out both",
-                    }}
-                >
-                    <span className="leading-relaxed">{toast.message}</span>
-                    <button
-                        type="button"
-                        onClick={() => onRemove(toast.id)}
-                        className="rounded-full border border-line/60 px-2 py-1 text-xs text-ink/70"
-                        aria-label="닫기"
+            <AnimatePresence mode="multiple">
+                {toasts.map((toast) => (
+                    <motion.div
+                        key={toast.id}
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{
+                            opacity: 0,
+                            scale: 0.95,
+                            transition: { duration: 0.2 },
+                        }}
+                        className={`
+                            pointer-events-auto 
+                            flex items-center justify-between gap-4 
+                            rounded-2xl border border-highlight/30 px-5 py-3.5 
+                            text-[13px] font-medium tracking-tight
+                            shadow-[0_10px_40px_rgba(0,0,0,0.06)] 
+                            ${toastVariantStyles[toast.variant]}
+                        `}
                     >
-                        닫기
-                    </button>
-                </div>
-            ))}
+                        <span className="leading-relaxed opacity-90">
+                            {toast.message}
+                        </span>
+                    </motion.div>
+                ))}
+            </AnimatePresence>
         </div>
     );
 }

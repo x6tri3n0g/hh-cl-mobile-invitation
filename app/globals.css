@@ -14,11 +14,23 @@
 body {
     background: var(--color-background);
     color: var(--color-ink);
-    font-family: Helvetica, sans-serif;
+    font-family: var(--font-geist-sans), Helvetica, sans-serif;
+}
+
+.text-glow {
+    text-shadow:
+        0 0 15px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+.text-glow-strong {
+    text-shadow:
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 40px rgba(255, 255, 255, 0.3);
 }
 
 section {
-    padding-top: 28px;
+    padding-top: 44px;
 }
 
 @keyframes fadeIn {
@@ -73,9 +85,9 @@ section {
     width: 1.2rem;
     height: 1.2rem;
     transform: rotate(-45deg);
-    background: var(--color-accent);
+    background: var(--color-highlight);
     border-radius: 0.25rem 0.25rem 0 0;
-    opacity: 0.75;
+    opacity: 0.6;
 }
 
 .heart-shape::before,
@@ -84,7 +96,7 @@ section {
     position: absolute;
     width: 1.2rem;
     height: 1.2rem;
-    background: var(--color-accent);
+    background: var(--color-highlight);
     border-radius: 9999px;
 }
 
@@ -96,4 +108,15 @@ section {
 .heart-shape::after {
     left: 0.55rem;
     top: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }

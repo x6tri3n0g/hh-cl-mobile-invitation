@@ -24,9 +24,19 @@ const ActionButton = ({ children, onClick, className }: ActionButtonProps) => {
         <button
             type="button"
             onClick={onClick}
-            className={`flex items-center justify-center w-[48px] h-[48px] rounded-full border border-line bg-accent/10 px-3 py-3 text-base text-ink ${className}`}
+            className={`
+                group relative flex items-center justify-center 
+                w-10 h-10 md:w-11 md:h-11 
+                rounded-full transition-all duration-300 
+                bg-white/10 hover:bg-white/20 
+                border border-white/10 hover:border-white/30
+                backdrop-blur-md active:scale-95
+                ${className}
+            `}
         >
-            {children}
+            <span className="text-white/70 group-hover:text-white transition-colors duration-300 text-lg md:text-xl">
+                {children}
+            </span>
         </button>
     );
 };
@@ -66,14 +76,12 @@ export default function BottomActionBar({ onZoomChange }: Props) {
         try {
             await navigator.clipboard.writeText(url);
             toast.success("링크가 복사되었습니다.");
-        } catch {
-            toast.error("공유가 불가능합니다.");
-        }
+        } catch {}
     }, [toast]);
 
     return (
-        <div className="fixed bottom-2 right-4 z-50 pb-[env(safe-area-inset-bottom)]">
-            <div className="flex items-center gap-2 border-line bg-background/90 p-3 backdrop-blur rounded-full shadow-lg">
+        <div className="fixed bottom-6 right-6 z-50 pb-[env(safe-area-inset-bottom)]">
+            <div className="flex flex-row items-center gap-2.5 p-2 bg-black/25 backdrop-blur-2xl rounded-full border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                 <ActionButton onClick={handleShare}>
                     <FiShare />
                 </ActionButton>

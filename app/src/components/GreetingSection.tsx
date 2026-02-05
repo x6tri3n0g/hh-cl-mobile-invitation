@@ -4,8 +4,8 @@ export default function GreetingSection() {
     return (
         <section id="greeting" className="">
             <div className="text-center">
-                <p className="text-xs tracking-[0.2em] text-ink/55">
-                    INVITATION GREETING
+                <p className="text-[10px] tracking-[0.3em] text-ink/40 uppercase">
+                    Invitation Greeting
                 </p>
                 <h2 className="mt-2 text-2xl text-ink">우리, 결혼합니다</h2>
                 <div className="mt-6 text-sm leading-relaxed text-ink/70">

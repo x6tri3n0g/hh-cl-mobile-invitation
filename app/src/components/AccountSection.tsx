@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { FiCopy } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
 const accounts = {
     groom: [
@@ -31,54 +32,83 @@ export default function AccountSection() {
     };
 
     return (
-        <section id="account" className="text-center">
-            <p className="text-xs tracking-[0.2em] text-ink/55">
-                ACCOUNT INFORMATION
-            </p>
-            <h2 className="mt-2 text-2xl text-ink">축하의 마음을 전하기</h2>
+        <section id="account" className="py-12">
+            <div className="text-center">
+                <p className="text-xs tracking-[0.2em] text-ink/55 uppercase">
+                    Account Information
+                </p>
+                <h2 className="mt-2 text-2xl text-ink">축하의 마음을 전하기</h2>
+            </div>
 
-            <div className="mt-6 rounded-2xl bg-accent/90 p-2">
-                <div className="grid grid-cols-2 gap-2">
-                    {(["groom", "bride"] as const).map((key) => (
-                        <button
-                            key={key}
-                            type="button"
-                            onClick={() => setTab(key)}
-                            className={`rounded-xl py-2 text-base ${
-                                tab === key
-                                    ? "bg-background text-ink"
-                                    : "text-ink/55"
-                            }`}
-                        >
-                            {key === "groom" ? "신랑측" : "신부측"}
-                        </button>
-                    ))}
+            {/* Premium Sliding Tab Switcher */}
+            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-accent/60 p-1.5 overflow-hidden">
+                <div className="relative flex">
+                    {(["groom", "bride"] as const).map((key) => {
+                        const isActive = tab === key;
+                        return (
+                            <button
+                                key={key}
+                                type="button"
+                                onClick={() => setTab(key)}
+                                className={`relative z-10 flex-1 rounded-[1rem] py-2.5 text-sm font-medium transition-colors duration-200 ${
+                                    isActive
+                                        ? "text-ink"
+                                        : "text-ink/40 hover:text-ink/60"
+                                }`}
+                            >
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="active-tab"
+                                        className="absolute inset-0 z-0 rounded-[0.9rem] bg-white shadow-sm"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 500,
+                                            damping: 35,
+                                        }}
+                                    />
+                                )}
+                                <span className="relative z-10">
+                                    {key === "groom" ? "신랑측" : "신부측"}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 
-            <div className="mt-4 space-y-3 text-left">
-                {items.map((item) => (
-                    <button
-                        key={item.name}
-                        type="button"
-                        onClick={() => copy(item.number)}
-                        className="flex flex-1 flex-col items-start justify-between w-full rounded-2xl border border-accent/90 bg-background px-4 py-3"
+            {/* Animated Account List */}
+            <div className="mt-6 mx-auto max-w-md overflow-hidden p-1">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={tab}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="space-y-4"
                     >
-                        <p className="text-base font-semibold text-ink">
-                            {item.name}
-                        </p>
-                        <p className="mt-1 text-sm text-ink/70">
-                            {item.number} · {item.bank}
-                        </p>
-
-                        <div className="flex justify-end w-full">
-                            <span className="flex items-center gap-1 text-xs text-blue-500">
-                                <FiCopy />
-                                계좌번호 복사
-                            </span>
-                        </div>
-                    </button>
-                ))}
+                        {items.map((item) => (
+                            <button
+                                key={item.name}
+                                type="button"
+                                onClick={() => copy(item.number)}
+                                className="group relative flex w-full flex-col items-start overflow-hidden rounded-[1.25rem] border border-accent/50 bg-white px-5 py-4 shadow-sm transition-all hover:border-accent hover:shadow-md active:scale-[0.98]"
+                            >
+                                <div className="flex w-full items-center justify-between">
+                                    <p className="text-base font-semibold text-ink">
+                                        {item.name}
+                                    </p>
+                                    <div className="rounded-full bg-accent/30 p-2 text-highlight">
+                                        <FiCopy className="text-sm" />
+                                    </div>
+                                </div>
+                                <p className="mt-0.5 text-[0.9rem] text-ink/60">
+                                    {item.bank} · {item.number}
+                                </p>
+                            </button>
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </section>
     );
