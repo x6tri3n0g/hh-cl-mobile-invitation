@@ -1,65 +1,75 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
-}
 
 interface ScrollRevealProps {
     children: React.ReactNode;
-    className?: string;
-    direction?: "up" | "down" | "left" | "right";
+    width?: "fit-content" | "100%";
     delay?: number;
-    duration?: number;
-    blur?: boolean;
+    direction?: "up" | "down" | "left" | "right";
+    className?: string;
     once?: boolean;
 }
 
 export default function ScrollReveal({
     children,
-    className,
-    direction = "up",
+    width = "fit-content",
     delay = 0,
-    duration = 0.5,
-    blur = false,
+    direction = "up",
+    className = "",
     once = true,
 }: ScrollRevealProps) {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once, margin: "-10% 0px" });
+    const isInView = useInView(ref, { once });
 
-    const variants = {
-        hidden: {
-            opacity: 0,
-            y: direction === "up" ? 40 : direction === "down" ? -40 : 0,
-            x: direction === "left" ? 40 : direction === "right" ? -40 : 0,
-            filter: blur ? "blur(10px)" : "blur(0px)",
-        },
+    const getDirectionOffset = () => {
+        switch (direction) {
+            case "up":
+                return { y: 75, x: 0 };
+            case "down":
+                return { y: -75, x: 0 };
+            case "left":
+                return { x: 75, y: 0 };
+            case "right":
+                return { x: -75, y: 0 };
+            default:
+                return { y: 75, x: 0 };
+        }
+    };
+
+    const { x, y } = getDirectionOffset();
+
+    const variants: Variants = {
+        hidden: { opacity: 0, y, x, filter: "blur(4px)" },
         visible: {
             opacity: 1,
             y: 0,
             x: 0,
             filter: "blur(0px)",
             transition: {
-                duration,
-                delay,
-                ease: [0.25, 0.25, 0, 1], // Ease-out cubic specifically for that smooth Apple feel
+                duration: 0.8,
+                delay: delay,
+                // Use a standard easing string or a specific cubic-bezier tuple with 'as const'
+                // to avoid "number[] is not assignable to Easing" error
+                ease: [0.25, 0.46, 0.45, 0.94] as const,
             },
         },
     };
 
     return (
-        <motion.div
+        <div
             ref={ref}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={variants}
-            className={cn(className)}
+            style={{ position: "relative", width, overflow: "hidden" }}
+            className={className}
         >
-            {children}
-        </motion.div>
+            <motion.div
+                variants={variants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+            >
+                {children}
+            </motion.div>
+        </div>
     );
 }
