@@ -54,7 +54,7 @@ function ToastViewport({
             role="status"
             aria-live="polite"
         >
-            <AnimatePresence mode="multiple">
+            <AnimatePresence mode="popLayout">
                 {toasts.map((toast) => (
                     <motion.div
                         key={toast.id}
