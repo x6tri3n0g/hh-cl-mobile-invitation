@@ -10,6 +10,9 @@ const config: Config = {
                 line: "#eae3c4",
                 accent: "#D6B672",
             },
+            fontFamily: {
+                serif: ["var(--font-noto-serif-kr)", "serif"],
+            },
         },
     },
 };

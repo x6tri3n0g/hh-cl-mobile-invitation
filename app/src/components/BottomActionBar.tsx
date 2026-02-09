@@ -80,7 +80,12 @@ export default function BottomActionBar({ onZoomChange }: Props) {
     }, [toast]);
 
     return (
-        <div className="fixed bottom-6 right-6 z-50 pb-[env(safe-area-inset-bottom)]">
+        <div
+            className="fixed right-6 z-50"
+            style={{
+                bottom: "calc(env(safe-area-inset-bottom) + 8px)",
+            }}
+        >
             <div className="flex flex-row items-center gap-2.5 p-2 bg-black/25 backdrop-blur-2xl rounded-full border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                 <ActionButton onClick={handleShare}>
                     <FiShare />

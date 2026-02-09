@@ -32,6 +32,18 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
         setMounted(true);
     }, []);
 
+    // 모달 오픈 시 배경 스크롤 방지
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isOpen]);
+
     const [formData, setFormData] = useState<RsvpData>({
         name: "",
         side: "groom",
@@ -51,7 +63,6 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
 
         if (!GOOGLE_SCRIPT_URL) {
             console.error("GOOGLE_SCRIPT_URL is not set.");
-            toast.info("참석 명단이 전송되었습니다. (테스트 모드)");
             onClose();
             return;
         }
@@ -102,12 +113,13 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                         initial={{ opacity: 0, y: 50, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="relative w-full max-w-sm overflow-hidden rounded-[2rem] bg-white shadow-2xl"
+                        className="relative flex flex-col w-full max-w-sm max-h-[calc(100dvh-10%)] rounded-[2rem] bg-white shadow-2xl overflow-hidden"
                     >
-                        <div className="bg-highlight/5 px-6 py-8">
+                        {/* Fixed Header */}
+                        <div className="relative bg-white px-6 pt-8 pb-4 z-10">
                             <button
                                 onClick={onClose}
-                                className="absolute right-6 top-6 text-ink/30 hover:text-ink/60 transition-colors"
+                                className="absolute right-6 top-8 text-ink/30 hover:text-ink/60 transition-colors"
                             >
                                 <FiX size={24} />
                             </button>
@@ -115,13 +127,17 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                             <h3 className="text-xl font-bold text-ink">
                                 참석 여부 전달
                             </h3>
-                            <p className="mt-2 text-sm text-ink/50">
+                            <p className="mt-1 text-sm text-ink/50">
                                 소중한 일정을 함께해주셔서 감사합니다.
                             </p>
+                        </div>
 
+                        {/* Scrollable Content */}
+                        <div className="flex-1 overflow-y-auto px-6 py-4 scrollbar-hide">
                             <form
+                                id="rsvp-form"
                                 onSubmit={handleSubmit}
-                                className="mt-8 space-y-5 text-left"
+                                className="space-y-5 text-left"
                             >
                                 <div className="space-y-2">
                                     <label className="flex items-center gap-2 text-[13px] font-semibold text-ink/60">
@@ -163,7 +179,7 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                                                     }
                                                     className={`rounded-xl py-2.5 text-sm transition-all ${
                                                         formData.side === side
-                                                            ? "bg-highlight text-white shadow-lg shadow-highlight/20 font-semibold"
+                                                            ? "bg-highlight/90 text-white shadow-lg shadow-highlight/20 font-semibold"
                                                             : "bg-slate-50 text-ink/40"
                                                     }`}
                                                 >
@@ -193,7 +209,7 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                                                 }
                                                 className={`rounded-xl py-2.5 text-sm transition-all ${
                                                     formData.attendance === att
-                                                        ? "bg-highlight text-white shadow-lg shadow-highlight/20 font-semibold"
+                                                        ? "bg-highlight/90 text-white shadow-lg shadow-highlight/20 font-semibold"
                                                         : "bg-slate-50 text-ink/40"
                                                 }`}
                                             >
@@ -286,7 +302,7 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                                     </motion.div>
                                 )}
 
-                                <div className="space-y-2">
+                                <div className="space-y-2 pb-2">
                                     <label className="flex items-center gap-2 text-[13px] font-semibold text-ink/60">
                                         <FiMessageCircle
                                             size={14}
@@ -307,22 +323,26 @@ export default function RsvpModal({ isOpen, onClose }: RsvpModalProps) {
                                         className="w-full rounded-xl border border-line/50 bg-white px-4 py-3 text-sm focus:border-highlight focus:outline-none focus:ring-2 focus:ring-highlight/10 transition-all font-medium resize-none"
                                     />
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-4 font-bold text-white shadow-xl shadow-ink/10 transition-all hover:bg-ink/90 active:scale-[0.98] disabled:opacity-50"
-                                >
-                                    {isSubmitting ? (
-                                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                                    ) : (
-                                        <>
-                                            참석 정보 전송하기
-                                            <FiCheck className="text-lg text-white/60" />
-                                        </>
-                                    )}
-                                </button>
                             </form>
+                        </div>
+
+                        {/* Fixed Footer */}
+                        <div className="p-6 bg-white border-t border-line/10 z-10">
+                            <button
+                                form="rsvp-form"
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-4 font-bold text-white shadow-xl shadow-ink/10 transition-all hover:bg-ink/90 active:scale-[0.98] disabled:opacity-50"
+                            >
+                                {isSubmitting ? (
+                                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                                ) : (
+                                    <div className="flex items-center gap-2">
+                                        참석 정보 전송하기
+                                        <FiCheck className="text-lg text-white/60" />
+                                    </div>
+                                )}
+                            </button>
                         </div>
                     </motion.div>
                 </div>

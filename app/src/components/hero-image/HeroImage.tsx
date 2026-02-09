@@ -126,16 +126,16 @@ export default function HeroImage() {
                         transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
                     />
 
-                    {/* Lighter White Overlay as we scroll */}
+                    {/* Lighter Dark Overlay as we scroll */}
                     <motion.div
                         className="absolute inset-0"
                         style={{
                             background:
-                                "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.5) 100%)",
+                                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.6) 100%)",
                             opacity: 1,
                         }}
                     >
-                        <div className="absolute inset-0 bg-white/5 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
                     </motion.div>
                 </motion.div>
             </motion.div>
@@ -143,9 +143,10 @@ export default function HeroImage() {
             {/* Decorative Elements */}
             <DecorativeElements />
 
-            {/* Content Layer (Dark Text for White Background) */}
-            <div className="relative z-20 flex h-full flex-col justify-end px-8 pb-28 text-ink">
+            {/* Content Layer (White Text for Dark Overlay) */}
+            <div className="relative z-20 flex h-full flex-col justify-end px-8 pb-28 text-white">
                 <motion.div
+                    className="drop-shadow-sm"
                     style={{
                         y: textY,
                         opacity: textOpacity,
@@ -163,13 +164,13 @@ export default function HeroImage() {
                         }}
                         className="mb-5"
                     >
-                        <span className="inline-block rounded-full border border-ink/10 bg-white/40 px-4 py-1.5 text-[10px] font-medium tracking-[0.3em] uppercase backdrop-blur-md">
+                        <span className="inline-block rounded-full border border-white/20 bg-black/30 px-4 py-1.5 text-[10px] font-bold tracking-[0.3em] uppercase backdrop-blur-md text-white/90">
                             2026.05.30 · 토요일 · 오후 6시 30분
                         </span>
                     </motion.div>
 
                     {/* Main Title */}
-                    <motion.h2
+                    <motion.div
                         initial={{ opacity: 0, y: 25 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
@@ -177,25 +178,39 @@ export default function HeroImage() {
                             delay: 1.0,
                             ease: [0.16, 1, 0.3, 1],
                         }}
-                        className="mb-8 text-5xl font-light leading-[1.2] tracking-tight sm:text-7xl"
+                        className="mb-8 flex flex-col gap-y-1 text-4xl font-semibold tracking-tight sm:text-7xl"
                     >
-                        <span className="">황현 &amp; 김채린</span>
-                        <br />
-                        <span className="font-medium italic opacity-80">
-                            결혼합니다
-                        </span>
-                    </motion.h2>
-
-                    {/* Description / Scroll Indicator */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1.5, delay: 1.8 }}
-                        className="flex items-center gap-4"
-                    >
-                        <div className="h-px w-10 bg-ink/20" />
-                        <p className="text-[10px] tracking-[0.5em] text-ink/40 uppercase">
-                            Swipe Up
+                        <div className="flex flex-wrap items-center gap-x-3">
+                            <span className="relative inline-block pb-1">
+                                황현
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: "100%" }}
+                                    transition={{
+                                        duration: 1,
+                                        delay: 2,
+                                        ease: "circOut",
+                                    }}
+                                    className="absolute bottom-0 left-0 h-[6px] bg-highlight/50"
+                                />
+                            </span>
+                            <span className="opacity-40 font-light">&</span>
+                            <span className="relative inline-block pb-1">
+                                김채린
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: "100%" }}
+                                    transition={{
+                                        duration: 1,
+                                        delay: 2.6,
+                                        ease: "circOut",
+                                    }}
+                                    className="absolute bottom-0 left-0 h-[6px] bg-highlight/50"
+                                />
+                            </span>
+                        </div>
+                        <p className="text-[1.6rem] font-medium opacity-95 sm:text-4xl">
+                            결혼식에 초대합니다.
                         </p>
                     </motion.div>
                 </motion.div>
