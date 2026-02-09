@@ -39,8 +39,8 @@ const DecorativeElements = () => {
                     key={`star-${star.id}`}
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{
-                        opacity: [0, 0.5, 0.9, 0.5, 0], // 투명도 변화 최적화
-                        scale: [0.5, 1, 1.2, 1, 0.5], // 크기 변화 최적화
+                        opacity: [0, 0.4, 0.7, 0.4, 0], // 투명도 변화
+                        scale: [0.5, 1, 1.2, 1, 0.5],
                     }}
                     transition={{
                         duration: star.duration,
@@ -48,7 +48,7 @@ const DecorativeElements = () => {
                         delay: star.delay,
                         ease: "easeInOut",
                     }}
-                    className="absolute rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.7)]"
+                    className="absolute rounded-full bg-accent/60 shadow-[0_0_8px_rgba(var(--accent-rgb),0.4)]"
                     style={{
                         left: star.x,
                         top: star.y,
@@ -57,7 +57,7 @@ const DecorativeElements = () => {
                     }}
                 >
                     {/* 별 중앙의 더 밝은 핵심점 */}
-                    <div className="absolute inset-0 rounded-full bg-white shadow-[0_0_4px_white]" />
+                    <div className="absolute inset-0 rounded-full bg-accent/80" />
                 </motion.div>
             ))}
         </div>
@@ -69,8 +69,9 @@ export default function HeroImage() {
 
     const isHidden = fadeOutProgress >= 1;
 
-    // Scroll-linked transforms
-    const imageScale = 1 - fadeOutProgress * 0.05;
+    // Scroll-linked transforms for parallax
+    const imageScale = 1; // 스케일 효과 제거
+    const imageY = fadeOutProgress * 120; // 패럴랙스 강도 강화
     const containerPadding = fadeOutProgress * 24;
     const containerRadius = fadeOutProgress * 48;
 
@@ -81,7 +82,7 @@ export default function HeroImage() {
 
     return (
         <section
-            className="fixed inset-x-0 top-0 left-0 right-0 z-20 h-[100svh] overflow-hidden bg-ink"
+            className="fixed inset-x-0 top-0 left-0 right-0 z-20 h-[100svh] overflow-hidden bg-white"
             style={{
                 pointerEvents: isHidden ? "none" : "auto",
                 opacity: isHidden ? 0 : 1,
@@ -94,7 +95,7 @@ export default function HeroImage() {
                 initial={{
                     scale: 1.2,
                     opacity: 0,
-                    filter: "brightness(2) contrast(1.1)",
+                    filter: "brightness(1.1) contrast(1.05)",
                 }}
                 animate={{
                     scale: 1,
@@ -112,6 +113,7 @@ export default function HeroImage() {
                     style={{
                         borderRadius: `${containerRadius}px`,
                         scale: imageScale,
+                        y: imageY,
                         transformOrigin: "center center",
                     }}
                 >
@@ -124,25 +126,25 @@ export default function HeroImage() {
                         transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
                     />
 
-                    {/* Darker Overlay as we scroll */}
+                    {/* Lighter White Overlay as we scroll */}
                     <motion.div
                         className="absolute inset-0"
                         style={{
                             background:
-                                "linear-gradient(180deg, rgba(34, 31, 26, 0.1) 0%, rgba(34, 31, 26, 0.5) 60%, rgba(34, 31, 26, 0.9) 100%)",
-                            opacity: 1 + fadeOutProgress * 0.3,
+                                "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.5) 100%)",
+                            opacity: 1,
                         }}
                     >
-                        <div className="absolute inset-0 bg-ink/15 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-white/5 mix-blend-overlay" />
                     </motion.div>
                 </motion.div>
             </motion.div>
 
-            {/* Decorative Elements (Random Light Streaks) */}
+            {/* Decorative Elements */}
             <DecorativeElements />
 
-            {/* Content Layer */}
-            <div className="relative z-20 flex h-full flex-col justify-end px-8 pb-28 text-white">
+            {/* Content Layer (Dark Text for White Background) */}
+            <div className="relative z-20 flex h-full flex-col justify-end px-8 pb-28 text-ink">
                 <motion.div
                     style={{
                         y: textY,
@@ -161,7 +163,7 @@ export default function HeroImage() {
                         }}
                         className="mb-5"
                     >
-                        <span className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[10px] font-medium tracking-[0.3em] uppercase backdrop-blur-md">
+                        <span className="inline-block rounded-full border border-ink/10 bg-white/40 px-4 py-1.5 text-[10px] font-medium tracking-[0.3em] uppercase backdrop-blur-md">
                             2026.05.30 · 토요일 · 오후 6시 30분
                         </span>
                     </motion.div>
@@ -177,11 +179,9 @@ export default function HeroImage() {
                         }}
                         className="mb-8 text-5xl font-light leading-[1.2] tracking-tight sm:text-7xl"
                     >
-                        <span className="text-glow-strong">
-                            황현 &amp; 김채린
-                        </span>
+                        <span className="">황현 &amp; 김채린</span>
                         <br />
-                        <span className="text-glow font-medium italic">
+                        <span className="font-medium italic opacity-80">
                             결혼합니다
                         </span>
                     </motion.h2>
@@ -193,8 +193,8 @@ export default function HeroImage() {
                         transition={{ duration: 1.5, delay: 1.8 }}
                         className="flex items-center gap-4"
                     >
-                        <div className="h-px w-10 bg-white/20" />
-                        <p className="text-[10px] tracking-[0.5em] text-white/50 uppercase">
+                        <div className="h-px w-10 bg-ink/20" />
+                        <p className="text-[10px] tracking-[0.5em] text-ink/40 uppercase">
                             Swipe Up
                         </p>
                     </motion.div>

@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const tabs = [
+const INFORMATION_TABS = [
     {
         id: "parking",
         label: "주차",
-        content: "주차장은 2시간 무료이며 추가 시간은 1시간당 3,000원입니다.",
+        content: `- 위치: 서울 강동구 천호대로 1077, 이스트센트럴타워 지하주차장
+- 주차 요금: 하객 2시간 무료 (35층 주차권 키오스크 등에서 주차권 등록)
+- 주차 공간: 최대 350대 수용 가능
+- 이용 팁: 지하주차장에서 1층으로 올라온 후, 엘리베이터를 갈아타서 35층으로 이동`,
     },
     {
         id: "venue_direction",
@@ -18,8 +21,10 @@ const tabs = [
 ];
 
 export default function InformationSection() {
-    const [active, setActive] = useState(tabs[0].id);
-    const current = tabs.find((tab) => tab.id === active) ?? tabs[0];
+    const [active, setActive] = useState(INFORMATION_TABS[0].id);
+    const current =
+        INFORMATION_TABS.find((tab) => tab.id === active) ??
+        INFORMATION_TABS[0];
 
     return (
         <section id="information" className="py-12">
@@ -31,9 +36,9 @@ export default function InformationSection() {
             </div>
 
             {/* Premium Sliding Tab Switcher */}
-            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-accent/60 p-1.5 overflow-hidden">
+            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-highlight/30 p-1.5 overflow-hidden">
                 <div className="relative flex">
-                    {tabs.map((tab) => {
+                    {INFORMATION_TABS.map((tab) => {
                         const isActive = active === tab.id;
                         return (
                             <button
@@ -77,7 +82,7 @@ export default function InformationSection() {
                         transition={{ duration: 0.3, ease: "easeOut" }}
                         className="rounded-[1.25rem] border border-accent/50 bg-white px-6 py-6 shadow-sm"
                     >
-                        <p className="text-sm leading-relaxed text-ink/70">
+                        <p className="text-sm leading-relaxed text-ink/70 whitespace-pre-line">
                             {current.content}
                         </p>
                     </motion.div>

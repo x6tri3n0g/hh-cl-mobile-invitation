@@ -41,7 +41,7 @@ export default function AccountSection() {
             </div>
 
             {/* Premium Sliding Tab Switcher */}
-            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-accent/60 p-1.5 overflow-hidden">
+            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-highlight/30 p-1.5 overflow-hidden">
                 <div className="relative flex">
                     {(["groom", "bride"] as const).map((key) => {
                         const isActive = tab === key;

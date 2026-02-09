@@ -11,8 +11,8 @@ export default function useHeroScroll() {
 
     useEffect(() => {
         const handleScroll = () => {
-            const progress = clamp(window.scrollY / 220, 0, 1);
-            const paddingVh = 100 - progress * 80;
+            const progress = clamp(window.scrollY / 400, 0, 1);
+            const paddingVh = 100 - progress * 10; // 100svh에서 50svh까지 서서히 줄어듦
             setFadeOutProgress(progress);
             setHeroPaddingVh(paddingVh);
             document.documentElement.style.setProperty(

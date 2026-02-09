@@ -257,7 +257,7 @@ export default function GallerySliderSection() {
                                 onClick={() => handleThumbnailClick(idx)}
                                 className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border transition-all ${
                                     idx === imageIndex
-                                        ? "border-accent opacity-100 ring-2 ring-accent ring-offset-1"
+                                        ? "border-highlight/30 opacity-100 ring-2 ring-highlight/80 ring-offset-1"
                                         : "border-line opacity-70 hover:opacity-100"
                                 }`}
                             >

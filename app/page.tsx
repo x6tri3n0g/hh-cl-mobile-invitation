@@ -7,7 +7,6 @@ import BackgroundDecorations from "./src/components/BackgroundDecorations";
 import BaseInfoSection from "./src/components/BaseInfoSection";
 import BottomActionBar from "./src/components/BottomActionBar";
 import EndingSection from "./src/components/EndingSection";
-import FallingPetals from "./src/components/FallingPetals";
 import FooterBrand from "./src/components/FooterBrand";
 import GallerySliderSection from "./src/components/GallerySliderSection";
 import GreetingSection from "./src/components/GreetingSection";
@@ -24,7 +23,6 @@ export default function Home() {
 
     return (
         <main className="relative min-h-[100dvh] overflow-hidden text-primary">
-            <FallingPetals />
             <div
                 className="relative overflow-hidden pt-10"
                 style={{
@@ -39,17 +37,14 @@ export default function Home() {
                 <div
                     className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col gap-14 px-5 pb-16"
                     style={{
-                        paddingTop:
-                            "clamp(28rem, var(--hero-padding, 100svh), 100svh)",
+                        paddingTop: "var(--hero-padding, 100svh)",
                     }}
                 >
                     <GreetingSection />
 
                     <BaseInfoSection />
 
-                    <ScrollReveal blur>
-                        <WeddingInfoSection />
-                    </ScrollReveal>
+                    <WeddingInfoSection />
 
                     <ScrollReveal blur>
                         <RemindSection />
@@ -63,13 +58,9 @@ export default function Home() {
                         <GallerySliderSection />
                     </ScrollReveal>
 
-                    <ScrollReveal blur>
-                        <AccountSection />
-                    </ScrollReveal>
+                    <AccountSection />
 
-                    <ScrollReveal blur>
-                        <InformationSection />
-                    </ScrollReveal>
+                    <InformationSection />
 
                     <ScrollReveal blur>
                         <RsvpSection />
