@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { generateICS, downloadICS } from "../utils/ics";
+import { generateICS, downloadICS } from "../../utils/ics";
 import { motion } from "framer-motion";
 
 const REMIND_MESSAGE_URL = "https://calendar.app.google/yGqbSPJNRMakctDy9";

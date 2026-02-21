@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, PanInfo } from "framer-motion";
 import GalleryModal from "./GalleryModal";
-import ScrollReveal from "./ScrollReveal";
+import ScrollReveal from "../ScrollReveal";
 
 const galleryImages = [
     {

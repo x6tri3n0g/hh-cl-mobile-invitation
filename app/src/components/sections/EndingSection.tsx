@@ -2,7 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import ScrollReveal from "./ScrollReveal";
+import ScrollReveal from "../ScrollReveal";
 
 const COLORS = ["#F5E6CC", "#FCE4EC", "#E1BEE7", "#FFF9C4", "#FFFFFF"];
 

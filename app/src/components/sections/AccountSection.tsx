@@ -40,7 +40,6 @@ export default function AccountSection() {
                 <h2 className="mt-2 text-2xl text-ink">축하의 마음을 전하기</h2>
             </div>
 
-            {/* Premium Sliding Tab Switcher */}
             <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-highlight/30 p-1.5 overflow-hidden">
                 <div className="relative flex">
                     {(["groom", "bride"] as const).map((key) => {

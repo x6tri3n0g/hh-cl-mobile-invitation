@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import ScrollReveal from "./ScrollReveal";
+import ScrollReveal from "../ScrollReveal";
 
 const PARENTS_INFO = [
     {

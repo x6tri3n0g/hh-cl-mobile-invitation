@@ -2,20 +2,20 @@
 
 import { useState } from "react";
 
-import AccountSection from "./src/components/AccountSection";
+import AccountSection from "./src/components/sections/AccountSection";
 import BackgroundDecorations from "./src/components/BackgroundDecorations";
-import BaseInfoSection from "./src/components/BaseInfoSection";
+import BaseInfoSection from "./src/components/sections/BaseInfoSection";
 import BottomActionBar from "./src/components/BottomActionBar";
-import EndingSection from "./src/components/EndingSection";
-import FooterBrand from "./src/components/FooterBrand";
-import GallerySliderSection from "./src/components/GallerySliderSection";
-import GreetingSection from "./src/components/GreetingSection";
-import HeroImage from "./src/components/hero-image/HeroImage";
-import InformationSection from "./src/components/InformationSection";
-import RemindSection from "./src/components/RemindSection";
-import RsvpSection from "./src/components/RsvpSection";
-import VenueDirectionSection from "./src/components/VenueDirectionSection";
-import WeddingInfoSection from "./src/components/WeddingInfoSection";
+import EndingSection from "./src/components/sections/EndingSection";
+import FooterBrand from "./src/components/sections/FooterBrand";
+import GallerySliderSection from "./src/components/sections/GallerySliderSection";
+import GreetingSection from "./src/components/sections/GreetingSection";
+import HeroImage from "./src/components/sections/hero-image/HeroImage";
+import InformationSection from "./src/components/sections/InformationSection";
+import RemindSection from "./src/components/sections/RemindSection";
+import RsvpSection from "./src/components/sections/RsvpSection";
+import VenueDirectionSection from "./src/components/sections/VenueDirectionSection";
+import WeddingInfoSection from "./src/components/sections/WeddingInfoSection";
 import ScrollReveal from "./src/components/ScrollReveal";
 
 export default function Home() {
