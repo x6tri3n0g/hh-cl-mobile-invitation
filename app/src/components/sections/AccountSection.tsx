@@ -4,8 +4,21 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { FiCopy } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { Switcher } from "../tabs";
+import { Tab } from "../tabs";
 
-const accounts = {
+const ACCOUNT_TABS: Tab[] = [
+    {
+        id: "groom",
+        label: "신랑측",
+    },
+    {
+        id: "bride",
+        label: "신부측",
+    },
+];
+
+const ACCOUNT_ITEMS = {
     groom: [
         { name: "[신랑] 황현", bank: "카카오뱅크", number: "3333034910329" },
         { name: "[아버지] 황선주", bank: "농협", number: "356-0024-1595-43" },
@@ -19,12 +32,12 @@ const accounts = {
         },
         { name: "[어머니] 인희숙", bank: "신한은행", number: "232-02-121098" },
     ],
-};
+} as const;
 
 export default function AccountSection() {
-    const [tab, setTab] = useState<"groom" | "bride">("groom");
+    const [tab, setTab] = useState("groom");
     const { toast } = useToast();
-    const items = accounts[tab];
+    const items = ACCOUNT_ITEMS[tab as keyof typeof ACCOUNT_ITEMS];
 
     const copy = async (text: string) => {
         try {
@@ -44,40 +57,12 @@ export default function AccountSection() {
                 <h2 className="mt-2 text-2xl text-ink">축하의 마음을 전하기</h2>
             </div>
 
-            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-highlight/30 p-1.5 overflow-hidden">
-                <div className="relative flex">
-                    {(["groom", "bride"] as const).map((key) => {
-                        const isActive = tab === key;
-                        return (
-                            <button
-                                key={key}
-                                type="button"
-                                onClick={() => setTab(key)}
-                                className={`relative z-10 flex-1 rounded-[1rem] py-2.5 text-sm font-medium transition-colors duration-200 ${
-                                    isActive
-                                        ? "text-ink"
-                                        : "text-ink/40 hover:text-ink/60"
-                                }`}
-                            >
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="active-tab"
-                                        className="absolute inset-0 z-0 rounded-[0.9rem] bg-white shadow-sm"
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 500,
-                                            damping: 35,
-                                        }}
-                                    />
-                                )}
-                                <span className="relative z-10">
-                                    {key === "groom" ? "신랑측" : "신부측"}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
+            <Switcher
+                layoutId="account-switcher"
+                tabs={ACCOUNT_TABS}
+                active={tab}
+                setActive={setTab}
+            />
 
             {/* Animated Account List */}
             <div className="mt-6 mx-auto max-w-md overflow-hidden p-1">

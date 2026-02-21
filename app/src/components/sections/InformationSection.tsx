@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Switcher } from "../tabs";
 
 const INFORMATION_TABS = [
     {
@@ -35,43 +36,13 @@ export default function InformationSection() {
                 <h2 className="mt-2 text-2xl text-ink">안내사항</h2>
             </div>
 
-            {/* Premium Sliding Tab Switcher */}
-            <div className="mt-8 mx-auto max-w-sm rounded-[1.25rem] bg-highlight/30 p-1.5 overflow-hidden">
-                <div className="relative flex">
-                    {INFORMATION_TABS.map((tab) => {
-                        const isActive = active === tab.id;
-                        return (
-                            <button
-                                key={tab.id}
-                                type="button"
-                                onClick={() => setActive(tab.id)}
-                                className={`relative z-10 flex-1 rounded-[1rem] py-2.5 text-sm font-medium transition-colors duration-200 ${
-                                    isActive
-                                        ? "text-ink"
-                                        : "text-ink/40 hover:text-ink/60"
-                                }`}
-                            >
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="info-tab"
-                                        className="absolute inset-0 z-0 rounded-[0.9rem] bg-white shadow-sm"
-                                        transition={{
-                                            type: "spring",
-                                            stiffness: 500,
-                                            damping: 35,
-                                        }}
-                                    />
-                                )}
-                                <span className="relative z-10">
-                                    {tab.label}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
+            <Switcher
+                layoutId="information-switcher"
+                tabs={INFORMATION_TABS}
+                active={active}
+                setActive={setActive}
+            />
 
-            {/* Animated Content Box */}
             <div className="mt-6 mx-auto max-w-md">
                 <AnimatePresence mode="wait">
                     <motion.div
