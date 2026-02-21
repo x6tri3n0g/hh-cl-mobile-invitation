@@ -7,13 +7,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const accounts = {
     groom: [
-        { name: "[신랑] 황현", bank: "하나은행", number: "12341233123123123" },
-        { name: "[아버지] 황선주", bank: "국민은행", number: "1234-1234-1234" },
+        { name: "[신랑] 황현", bank: "카카오뱅크", number: "3333034910329" },
+        { name: "[아버지] 황선주", bank: "농협", number: "356-0024-1595-43" },
     ],
     bride: [
-        { name: "[신부] 김채린", bank: "신한은행", number: "1234-5678-9012" },
-        { name: "[아버지] 김기용", bank: "우리은행", number: "9876-5432-1098" },
-        { name: "[어머니] 인희숙", bank: "우리은행", number: "9876-5432-1098" },
+        { name: "[신부] 김채린", bank: "카카오뱅크", number: "3333260822625" },
+        {
+            name: "[아버지] 김기용",
+            bank: "하나은행",
+            number: "164-910007-44507",
+        },
+        { name: "[어머니] 인희숙", bank: "신한은행", number: "232-02-121098" },
     ],
 };
 
