@@ -4,7 +4,7 @@ import { Fragment, useMemo, useState } from "react";
 
 import BackgroundDecorations from "./src/components/BackgroundDecorations";
 import { BaseInfoSection } from "./src/components/sections/base-info";
-import BottomActionBar from "./src/components/BottomActionBar";
+import BottomActionBar from "./src/components/bottom-action-bar";
 import { EndingSection } from "./src/components/sections/ending";
 import FooterBrand from "./src/components/sections/FooterBrand";
 import { GallerySliderSection } from "./src/components/sections/gallery-slider";
@@ -45,7 +45,7 @@ export default function Home() {
     );
 
     return (
-        <main className="relative min-h-[100dvh] overflow-hidden text-primary">
+        <main className="relative min-h-[100dvh] overflow-hidden text-primary bg-purple-50">
             <div
                 className="relative overflow-hidden pt-10"
                 style={{
@@ -58,7 +58,7 @@ export default function Home() {
                 <HeroImage />
 
                 <div
-                    className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col gap-14 px-5 pb-16"
+                    className="mx-auto flex min-h-dvh w-full max-w-[480px] flex-col gap-14 px-5 pb-16 bg-white"
                     style={{
                         paddingTop: "var(--hero-padding, 100svh)",
                     }}
