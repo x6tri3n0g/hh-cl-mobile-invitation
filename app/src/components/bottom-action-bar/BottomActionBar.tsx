@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
 import {
     FiShare,
     FiVolume2,
@@ -8,11 +7,9 @@ import {
     FiVolumeX,
     FiZoomIn,
 } from "react-icons/fi";
-import { useToast } from "@/hooks/use-toast";
-
-const INITIAL_ZOOM = 1;
-const ZOOM_RATIO = 1.1;
-const AUDIO_SRC = "/audio/bgm.mp3";
+import useShare from "./useShare";
+import useZoom, { INITIAL_ZOOM } from "./useZoom";
+import useBGM, { AUDIO_SRC } from "./useBGM";
 
 interface ActionButtonProps {
     children: React.ReactNode;
@@ -47,60 +44,9 @@ interface Props {
 }
 
 export default function BottomActionBar({ onZoomChange }: Props) {
-    const [soundOn, setSoundOn] = useState(true);
-    const [zoom, setZoom] = useState(INITIAL_ZOOM);
-    const { toast } = useToast();
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-
-    const toggleZoom = useCallback(() => {
-        const next = zoom === INITIAL_ZOOM ? ZOOM_RATIO : INITIAL_ZOOM;
-        setZoom(next);
-        onZoomChange?.(next);
-    }, [onZoomChange, zoom]);
-
-    const handleShare = useCallback(async () => {
-        const url = window.location.href;
-        const shareData = {
-            title: document.title,
-            text: "모바일 청첩장을 확인해 주세요.",
-            url,
-        };
-
-        if (navigator.share) {
-            try {
-                await navigator.share(shareData);
-                return;
-            } catch {
-                // ignore cancellation
-            }
-        }
-
-        try {
-            await navigator.clipboard.writeText(url);
-            toast.success("링크가 복사되었습니다.");
-        } catch {}
-    }, [toast]);
-
-    useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        audio.loop = true;
-        audio.volume = 0.5;
-
-        if (soundOn) {
-            void audio.play().catch(() => {
-                setSoundOn(false);
-                toast.error("자동 재생이 차단되었습니다. 버튼을 눌러주세요.");
-            });
-        } else {
-            audio.pause();
-        }
-    }, [soundOn, toast]);
-
-    const toggleSound = useCallback(() => {
-        setSoundOn((prev) => !prev);
-    }, []);
+    const { handleShare } = useShare();
+    const { toggleSound, soundOn, audioRef } = useBGM();
+    const { toggleZoom, zoom } = useZoom({ onZoomChange });
 
     return (
         <div

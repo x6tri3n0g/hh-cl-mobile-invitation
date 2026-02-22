@@ -1,22 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Noto_Serif_KR } from "next/font/google";
+import { Geist } from "next/font/google";
 import { ToastProvider } from "@/hooks/use-toast";
 import "./globals.css";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
-
-const notoSerifKr = Noto_Serif_KR({
-    variable: "--font-noto-serif-kr",
-    subsets: ["latin"],
-    weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -43,9 +32,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ko">
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} ${notoSerifKr.variable} font-serif antialiased`}
-            >
+            <body className={`${geistSans.variable} font-serif antialiased`}>
                 <ToastProvider>{children}</ToastProvider>
             </body>
         </html>
