@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
     FiShare,
     FiVolume2,
@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const INITIAL_ZOOM = 1;
 const ZOOM_RATIO = 1.1;
+const AUDIO_SRC = "/audio/bgm.mp3";
 
 interface ActionButtonProps {
     children: React.ReactNode;
@@ -46,9 +47,10 @@ interface Props {
 }
 
 export default function BottomActionBar({ onZoomChange }: Props) {
-    const [soundOn, setSoundOn] = useState(false);
+    const [soundOn, setSoundOn] = useState(true);
     const [zoom, setZoom] = useState(INITIAL_ZOOM);
     const { toast } = useToast();
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const toggleZoom = useCallback(() => {
         const next = zoom === INITIAL_ZOOM ? ZOOM_RATIO : INITIAL_ZOOM;
@@ -79,6 +81,27 @@ export default function BottomActionBar({ onZoomChange }: Props) {
         } catch {}
     }, [toast]);
 
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.loop = true;
+        audio.volume = 0.5;
+
+        if (soundOn) {
+            void audio.play().catch(() => {
+                setSoundOn(false);
+                toast.error("자동 재생이 차단되었습니다. 버튼을 눌러주세요.");
+            });
+        } else {
+            audio.pause();
+        }
+    }, [soundOn, toast]);
+
+    const toggleSound = useCallback(() => {
+        setSoundOn((prev) => !prev);
+    }, []);
+
     return (
         <div
             className="fixed right-6 z-50"
@@ -90,13 +113,14 @@ export default function BottomActionBar({ onZoomChange }: Props) {
                 <ActionButton onClick={handleShare}>
                     <FiShare />
                 </ActionButton>
-                <ActionButton onClick={() => setSoundOn((prev) => !prev)}>
+                <ActionButton onClick={toggleSound}>
                     {soundOn ? <FiVolumeX /> : <FiVolume2 />}
                 </ActionButton>
                 <ActionButton onClick={toggleZoom}>
                     {zoom === INITIAL_ZOOM ? <FiZoomIn /> : <FiZoomOut />}
                 </ActionButton>
             </div>
+            <audio ref={audioRef} src={AUDIO_SRC} />
         </div>
     );
 }

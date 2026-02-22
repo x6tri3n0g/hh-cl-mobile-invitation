@@ -29,8 +29,8 @@ export const CONTACT_GROUPS: ContactGroup[] = [
         enLabel: "BRIDE",
         items: [
             { role: "신부", name: "김채린", phone: "010-8299-1154" },
-            { role: "신부 아버님", name: "김기용", phone: "010-8299-1154" },
-            { role: "신부 어머님", name: "인희숙", phone: "010-8299-1154" },
+            { role: "신부 아버님", name: "김기용", phone: "010-9198-1154" },
+            { role: "신부 어머님", name: "인희숙", phone: "010-5354-0161" },
         ],
     },
 ];
