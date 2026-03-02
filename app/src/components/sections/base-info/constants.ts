@@ -5,12 +5,16 @@ export const PARENTS_INFO: ParentInfo[] = [
         role: "신랑",
         name: "황현",
         parents: "황선주 · 김미량의 아들",
+        birthday: "1994.06.30",
+        mbti: "ENFJ",
         image: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927430/KakaoTalk_Photo_2026-01-25-19-12-14_002_fvoc1y.jpg",
     },
     {
         role: "신부",
         name: "김채린",
         parents: "김기용 · 인희숙의 딸",
+        birthday: "1994.10.04",
+        mbti: "ISFJ",
         image: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927435/KakaoTalk_Photo_2026-01-25-19-12-15_003_uaqiuj.jpg",
     },
 ];

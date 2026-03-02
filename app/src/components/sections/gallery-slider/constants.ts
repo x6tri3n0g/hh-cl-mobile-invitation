@@ -30,16 +30,8 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
         alt: "웨딩 사진 7",
     },
     {
-        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927433/KakaoTalk_Photo_2026-01-25-19-12-17_006_pwded0.jpg",
-        alt: "웨딩 사진 8",
-    },
-    {
         src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927434/L1020941_upakvn.jpg",
-        alt: "웨딩 사진 9",
-    },
-    {
-        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927431/L1020956_xccrgj.jpg",
-        alt: "웨딩 사진 10",
+        alt: "웨딩 사진 8",
     },
 ];
 

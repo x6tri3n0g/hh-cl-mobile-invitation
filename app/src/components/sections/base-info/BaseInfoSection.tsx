@@ -49,14 +49,11 @@ export default function BaseInfoSection() {
                                 key={person.role}
                                 delay={0.1 * index}
                                 direction={index % 2 === 0 ? "right" : "left"}
-                                className="rounded-2xl border border-accent bg-accent/10 p-4"
+                                className="rounded-2xl border border-accent bg-accent/10 p-3"
                                 once={false}
                             >
                                 <article>
-                                    <p className="text-xs uppercase tracking-[0.2em] text-ink/55">
-                                        {person.role}
-                                    </p>
-                                    <div className="mt-3 overflow-hidden rounded-xl border border-accent bg-background relative aspect-square">
+                                    <div className="overflow-hidden rounded-xl border border-accent bg-background relative aspect-square">
                                         <Image
                                             src={person.image}
                                             alt={person.name}
@@ -65,12 +62,25 @@ export default function BaseInfoSection() {
                                             sizes="(max-width: 768px) 50vw, 33vw"
                                         />
                                     </div>
-                                    <p className="mt-3 text-sm text-ink/70">
-                                        {person.parents}
-                                    </p>
-                                    <p className="mt-1 text-base text-ink">
-                                        {person.name}
-                                    </p>
+                                    <div className="flex flex-col items-center">
+                                        <div className="flex items-center gap-2 mt-3">
+                                            <span className="outline-2 outline-accent bg-accent/70 rounded-full px-2 py-[2px] text-xs text-ink/70">
+                                                {person.role}
+                                            </span>
+                                            <p className="inline-block text-base text-ink font-semibold">
+                                                {person.name}
+                                            </p>
+                                        </div>
+                                        <p className="mt-3 text-sm text-ink/70">
+                                            {person.parents}
+                                        </p>
+                                        <p className="mt-1 text-sm text-ink/70">
+                                            {person.birthday}
+                                        </p>
+                                        <p className="mt-1 text-sm text-ink/70">
+                                            {person.mbti}
+                                        </p>
+                                    </div>
                                 </article>
                             </ScrollReveal>
                         ))}
