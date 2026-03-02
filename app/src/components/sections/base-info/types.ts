@@ -3,6 +3,8 @@ export interface ParentInfo {
     name: string;
     parents: string;
     image: string;
+    birthday: string;
+    mbti: string;
 }
 
 export interface ContactItem {
