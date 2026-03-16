@@ -1,15 +1,8 @@
 "use client";
 
-import {
-    FiShare,
-    FiVolume2,
-    FiZoomOut,
-    FiVolumeX,
-    FiZoomIn,
-} from "react-icons/fi";
+import { FiShare, FiZoomOut, FiZoomIn } from "react-icons/fi";
 import useShare from "./useShare";
 import useZoom, { INITIAL_ZOOM } from "./useZoom";
-import useBGM, { AUDIO_SRC } from "./useBGM";
 
 interface ActionButtonProps {
     children: React.ReactNode;
@@ -45,7 +38,6 @@ interface Props {
 
 export default function BottomActionBar({ onZoomChange }: Props) {
     const { handleShare } = useShare();
-    const { toggleSound, soundOn, audioRef } = useBGM();
     const { toggleZoom, zoom } = useZoom({ onZoomChange });
 
     return (
@@ -59,14 +51,10 @@ export default function BottomActionBar({ onZoomChange }: Props) {
                 <ActionButton onClick={handleShare}>
                     <FiShare />
                 </ActionButton>
-                <ActionButton onClick={toggleSound}>
-                    {soundOn ? <FiVolumeX /> : <FiVolume2 />}
-                </ActionButton>
                 <ActionButton onClick={toggleZoom}>
                     {zoom === INITIAL_ZOOM ? <FiZoomIn /> : <FiZoomOut />}
                 </ActionButton>
             </div>
-            <audio ref={audioRef} src={AUDIO_SRC} />
         </div>
     );
 }

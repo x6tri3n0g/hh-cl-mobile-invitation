@@ -18,11 +18,11 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
         alt: "웨딩 사진 4",
     },
     {
-        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927432/KakaoTalk_Photo_2026-01-25-19-12-24_015_vctzjm.jpg",
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927432/KakaoTalk_Photo_2026-01-25-19-12-16_004_nxgp0v.jpg",
         alt: "웨딩 사진 5",
     },
     {
-        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927439/KakaoTalk_Photo_2026-01-25-19-12-21_012_u7pkrr.jpg",
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927432/KakaoTalk_Photo_2026-01-25-19-12-24_015_vctzjm.jpg",
         alt: "웨딩 사진 6",
     },
     {
@@ -32,6 +32,42 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
     {
         src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1769927434/L1020941_upakvn.jpg",
         alt: "웨딩 사진 8",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669933/jamsu-1_uvwoia.jpg",
+        alt: "웨딩 사진 9",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669935/jamsu-2_mc2k3i.jpg",
+        alt: "웨딩 사진 10",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669942/jamsu-3_zunmws.jpg",
+        alt: "웨딩 사진 11",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669935/jamsu-4_xpbu2a.jpg",
+        alt: "웨딩 사진 12",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669941/jamsu-5_uo5tqu.jpg",
+        alt: "웨딩 사진 13",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669935/jamsu-6_p8nopl.jpg",
+        alt: "웨딩 사진 14",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669935/jamsu-7_mbrazs.jpg",
+        alt: "웨딩 사진 15",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669936/jamsu-8_w3wisi.jpg",
+        alt: "웨딩 사진 16",
+    },
+    {
+        src: "https://res.cloudinary.com/dpjkhhtmt/image/upload/v1773669936/jamsu-9_cfefe7.jpg",
+        alt: "웨딩 사진 17",
     },
 ];
 

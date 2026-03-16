@@ -6,11 +6,7 @@ import { motion, PanInfo } from "framer-motion";
 import GalleryModal from "./GalleryModal";
 import ScrollReveal from "../../ScrollReveal";
 import { GALLERY_IMAGES, SWIPE_CONFIDENCE_THRESHOLD } from "./constants";
-import {
-    getNormalizedIndex,
-    getShortestMove,
-    swipePower,
-} from "./utils";
+import { getNormalizedIndex, getShortestMove, swipePower } from "./utils";
 
 export default function GallerySliderSection() {
     const [page, setPage] = useState(0);
@@ -97,7 +93,7 @@ export default function GallerySliderSection() {
 
             <div className="mt-6">
                 <ScrollReveal direction="up" delay={0.1}>
-                    <div className="relative aspect-[9/13] w-full overflow-hidden rounded-2xl border border-line bg-accent/10">
+                    <div className="relative aspect-[1/1] w-full overflow-hidden rounded-2xl border border-line bg-accent/10">
                         {/* 
                              Stable Image Mount Strategy:
                              Instead of swapping components with AnimatePresence (which triggers network checks),
