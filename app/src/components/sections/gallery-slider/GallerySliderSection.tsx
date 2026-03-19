@@ -22,6 +22,7 @@ export default function GallerySliderSection() {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const [dragDistance, setDragDistance] = useState(0);
+    const hasDragged = useRef(false);
 
     const paginate = (newDirection: number) => {
         setPage(page + newDirection);
@@ -29,6 +30,11 @@ export default function GallerySliderSection() {
 
     const goPrev = () => paginate(-1);
     const goNext = () => paginate(1);
+
+    const openLargeImage = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsOpen(true);
+    };
 
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsDragging(true);
@@ -129,7 +135,7 @@ export default function GallerySliderSection() {
                                             src={image.src}
                                             alt={image.alt}
                                             fill
-                                            className="object-cover pointer-events-none"
+                                            className="object-cover"
                                             sizes="(max-width: 640px) 90vw, 420px"
                                             priority={i === imageIndex}
                                         />
@@ -138,14 +144,21 @@ export default function GallerySliderSection() {
                             })}
 
                             <motion.div
-                                className="absolute inset-0 z-20"
+                                className="absolute inset-0 z-20 cursor-pointer"
                                 drag="x"
                                 dragConstraints={{ left: 0, right: 0 }}
                                 dragElastic={1}
+                                onDragStart={() => {
+                                    hasDragged.current = true;
+                                }}
                                 onDragEnd={(
                                     e: any,
                                     { offset, velocity }: PanInfo
                                 ) => {
+                                    setTimeout(() => {
+                                        hasDragged.current = false;
+                                    }, 100);
+                                    
                                     const swipe = swipePower(
                                         offset.x,
                                         velocity.x
@@ -158,10 +171,14 @@ export default function GallerySliderSection() {
                                         paginate(-1);
                                     }
                                 }}
+                                onClick={(e) => {
+                                    if (hasDragged.current) return;
+                                    openLargeImage(e);
+                                }}
                             />
                         </div>
 
-                        <button
+                        {/* <button
                             type="button"
                             onClick={goPrev}
                             className="absolute z-30 left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-2 text-white transition-colors hover:bg-black/50"
@@ -176,13 +193,13 @@ export default function GallerySliderSection() {
                             aria-label="다음"
                         >
                             ›
-                        </button>
+                        </button> */}
                         <div className="absolute z-30 bottom-3 left-3 rounded-full bg-black/30 px-2 py-1 text-xs text-white">
                             {imageIndex + 1} / {total}
                         </div>
                         <button
                             type="button"
-                            onClick={() => setIsOpen(true)}
+                            onClick={openLargeImage}
                             className="absolute z-30 bottom-3 right-3 rounded-full bg-background/85 px-3 py-1 text-xs text-ink transition-colors hover:bg-background"
                         >
                             원본보기

@@ -13,14 +13,17 @@ export default function AccountSection() {
     const { toast } = useToast();
     const items = getAccountItems(ACCOUNT_ITEMS, tab);
 
-    const copy = useCallback(async (text: string) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            toast.success("계좌번호가 복사되었습니다.");
-        } catch {
-            toast.error("계좌번호 복사가 불가능합니다.");
-        }
-    }, [toast]);
+    const copy = useCallback(
+        async (text: string) => {
+            try {
+                await navigator.clipboard.writeText(text);
+                toast.success("계좌번호가 복사되었습니다.");
+            } catch {
+                toast.error("계좌번호 복사가 불가능합니다.");
+            }
+        },
+        [toast]
+    );
 
     return (
         <section id="account" className="py-12">
@@ -56,6 +59,20 @@ export default function AccountSection() {
                     ))}
                 </Switcher.Panel>
             </Switcher>
+
+            <div className="mt-32 flex flex-col items-center">
+                <span className="font-serif text-4xl text-ink/20 leading-none h-4 mb-3">
+                    &ldquo;
+                </span>
+                <p className="whitespace-pre-line text-center text-base text-ink/70">
+                    마음만 감사히 받겠습니다.{"\n"}
+                    예식장 공간이 협소하여 <b>화환은 정중히 사양</b>하오니{"\n"}
+                    너른 양해 부탁드립니다.
+                </p>
+                <span className="font-serif text-4xl text-ink/20 leading-none h-4 mt-3">
+                    &rdquo;
+                </span>
+            </div>
         </section>
     );
 }

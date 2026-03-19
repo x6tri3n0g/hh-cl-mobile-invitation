@@ -32,7 +32,7 @@ export default function InformationSection() {
                     ))}
                 </Switcher.List>
                 <Switcher.Panel>
-                    <p className="text-sm leading-relaxed text-ink/70 whitespace-pre-line rounded-[1.25rem] border border-accent/50 bg-white px-6 py-6 shadow-sm">
+                    <p className="min-h-[188px] text-sm leading-relaxed text-ink/70 whitespace-pre-line rounded-[1.25rem] border border-accent/50 bg-white px-6 py-6 shadow-sm">
                         {current.content}
                     </p>
                 </Switcher.Panel>

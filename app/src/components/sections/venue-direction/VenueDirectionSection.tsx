@@ -68,15 +68,26 @@ export default function VenueDirectionSection() {
             <div className="mt-6 space-y-4 text-base text-ink/70">
                 <div>
                     <p className="font-semibold text-ink">지하철</p>
-                    <p className="mt-1 text-base">
-                        5호선 강동역 1번 출구 → 건물 지하 연결 → 35층
-                    </p>
+                    <p className="mt-1 text-base">5호선 강동역 1번 출구 연결</p>
                 </div>
                 <div>
                     <p className="font-semibold text-ink">자가용</p>
-                    <p className="mt-1 text-base">
-                        네비게이션: 강동 루벨 (주차 가능, 2시간 무료)
+                    <p className="mt-1 text-base whitespace-pre-line">
+                        천호동 448-6으로 검색 시,{"\n"}
+                        이스트 센트럴타워 주차장(오피스 방면)으로 입구로
+                        안내됩니다.
                     </p>
+                    <ul className="mt-4 text-base p-4 border border-[#ebebebb3] rounded-xl bg-[#faf5ff8a">
+                        <li>
+                            · 주차 요금: 하객 2시간 무료 (35층 키오스크에서
+                            주차권 등록)
+                        </li>
+                        <li>· 주차 공간: 최대 350대</li>
+                        <li>
+                            · 이용 팁: 지하주차장에서 1층으로 올라온 후,
+                            엘리베이터를 갈아타서 35층으로 이동
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>

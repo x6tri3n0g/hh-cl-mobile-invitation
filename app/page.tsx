@@ -36,7 +36,6 @@ export default function Home() {
                 reveal: true,
             },
             { key: "account", element: <AccountSection /> },
-            { key: "information", element: <InformationSection /> },
             { key: "rsvp", element: <RsvpSection />, reveal: true },
             { key: "ending", element: <EndingSection />, reveal: true },
             { key: "footer", element: <FooterBrand /> },
