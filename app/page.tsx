@@ -15,7 +15,6 @@ import { VenueDirectionSection } from "./src/components/sections/venue-direction
 import { WeddingInfoSection } from "./src/components/sections/wedding-info";
 import ScrollReveal from "./src/components/ScrollReveal";
 import { AccountSection } from "./src/components/sections/account";
-import { InformationSection } from "./src/components/sections/information";
 
 export default function Home() {
     const [zoom, setZoom] = useState(1);
